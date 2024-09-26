@@ -49,7 +49,7 @@ button, .button {
 
 /* Icon color inside the button */
 button i, .button i {
-  color: #C2EDCE; /* Icon color */
+  color: #fff; /* Icon color */
   font-size: 20px; /* Adjust icon size if needed */
   margin-left: 10px; /* Space between text and icon */
 }
