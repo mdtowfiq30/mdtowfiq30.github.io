@@ -22,7 +22,8 @@
   --container-color: #fff;
   --scroll-bar-color: hsl(var(--hue-color), 12%, 90%);
   --scroll-thumb-color: hsl(var(--hue-color), 12%, 80%);
-
+  --body-color: #f6f6f2; /* Set your desired background color */
+  --container-color: #fff; /* Leave this if you want containers to stay white */
   /*========= Font and typography ===========*/
   --body-font: "Poppins", sans-serif;
 
