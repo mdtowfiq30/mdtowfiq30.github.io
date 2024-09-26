@@ -35,6 +35,35 @@
   --small-font-size: 0.813rem;
   --smaller-font-size: 0.75rem;
 
+  /* Button background color and text color */
+button, .button {
+  background-color: #C2EDCE;  /* Button background color */
+  color: #000; /* Button text color (adjust as needed) */
+  border: none; /* Remove default border */
+  padding: 10px 20px; /* Add padding for a better appearance */
+  border-radius: 5px; /* Optional: rounded corners */
+  display: inline-flex; /* Align icon and text horizontally */
+  align-items: center;
+  justify-content: center;
+}
+
+/* Icon color inside the button */
+button i, .button i {
+  color: #C2EDCE; /* Icon color */
+  font-size: 20px; /* Adjust icon size if needed */
+  margin-left: 10px; /* Space between text and icon */
+}
+
+/* For <img> icons */
+button img, .button img {
+  filter: brightness(0) saturate(100%) invert(86%) sepia(23%) saturate(460%) hue-rotate(87deg) brightness(101%) contrast(86%);
+}
+
+/* Optional hover effect */
+button:hover, .button:hover {
+  background-color: #A9DAB7; /* Slightly darker green on hover */
+}
+
   /*=========== Font weight ==========*/
 
   --font-medium: 500;
