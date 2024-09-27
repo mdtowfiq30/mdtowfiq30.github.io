@@ -944,6 +944,94 @@ img {
   outline: none;
 }
 
+/*================ Volunteer ===============*/
+.volunteer__section {
+  display: flex; /* Enable flexbox for centering */
+  justify-content: center; /* Center the container horizontally */
+  align-items: center; /* Center the container vertically */
+  min-height: 100vh; /* Ensure the section takes the full height of the viewport */
+  padding: 2rem 1rem; /* Optional: Add padding */
+  background-color: #f5f5f5; /* Optional: Background color for contrast */
+}
+
+.section__title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.section__subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.volunteer__container {
+  background-color: white; /* White background */
+  border-radius: 10px; /* Rounded corners */
+  padding: 2rem; /* Padding inside the container */
+  margin: 1rem auto; /* Space above and below the container */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  max-width: 600px; /* Max width for the container */
+  width: 100%; /* Ensure the container takes full available width */
+}
+
+.volunteer__card {
+  background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px; /* Adds space between cards */
+}
+
+.volunteer__header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem; /* Space below header */
+}
+
+.volunteer__logo {
+  width: 50px; /* Adjust logo size */
+  height: 50px; /* Adjust logo size */
+  margin-right: 1rem; /* Space between logo and text */
+}
+
+.volunteer__info {
+  flex-grow: 1; /* Allows the info section to take up available space */
+}
+
+.volunteer__organization {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.volunteer__duration,
+.volunteer__location {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.volunteer__role {
+  margin: 1.5rem 0; /* Space above and below roles */
+}
+
+.volunteer__position {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.volunteer__timeframe {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.volunteer__description {
+  font-size: 0.95rem;
+  color: #555;
+  margin-top: 0.5rem; /* Space above description */
+}
+
+
 /*================ Contact Me ===============*/
 
 .contact__container {
