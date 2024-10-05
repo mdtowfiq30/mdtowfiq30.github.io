@@ -260,10 +260,13 @@ img {
   font-size: var(--small-font-size);
   color: var(--title-color);
   font-weight: var(--font-medium);
+  transition: color 0.3s ease, transform 0.3s ease; /* Smooth transition */
 }
 
 .nav__link:hover {
   color: var(--first-color);
+  text-decoration: underline; /* Underline on hover */
+  transform: scale(1.2); /* Slight zoom on hover */
 }
 
 .nav__icon {
