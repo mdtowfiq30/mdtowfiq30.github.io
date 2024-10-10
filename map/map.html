@@ -21,7 +21,7 @@
 
     <div id="map"></div>
 
-    <!-- Weather Section -->
+    <!-- Weather Section (shown only on larger screens) -->
     <div id="weather-section">
         <label for="divisionSelect">Select Division:</label>
         <select id="divisionSelect">
@@ -37,15 +37,20 @@
     </div>
 
     <div id="weather"></div> <!-- Weather Display -->
-<!-- Upload CSV Button Section -->
-<div class="upload-container">
-    <label for="csvFile" class="upload-label">Upload CSV</label>
-    <input type="file" id="csvFile" accept=".csv" />
-</div>
+
+    <!-- Upload CSV Button Section -->
+    <div class="upload-container">
+        <label for="csvFile" class="upload-label">Upload CSV</label>
+        <input type="file" id="csvFile" accept=".csv" />
+    </div>
+
+    <!-- Footer for the download button (shown on smaller screens) -->
+    <div class="download-container">
+        <button class="download-button">Download Layer</button>
+    </div>
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="script.js"></script>
     <script src="weather.js"></script> <!-- Weather script file -->
-    
 </body>
 </html>
