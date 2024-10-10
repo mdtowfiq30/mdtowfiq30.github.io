@@ -29,7 +29,7 @@ body {
 }
 
 .navbar-brand:hover {
-    color: #fff;
+    color: #333333;
     transform: scale(1.1);
 }
 
