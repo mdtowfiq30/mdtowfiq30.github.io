@@ -225,10 +225,12 @@ img {
 .nav__toggle {
   color: var(--title-color);
   font-weight: var(--font-medium);
+  transition: color 0.3s ease, transform 0.3s ease; /* Smooth transition */
 }
 
 .nav__logo:hover {
   color: var(--first-color);
+  transform: scale(1.2);
 }
 .nav__toggle {
   font-size: 1.1rem;
