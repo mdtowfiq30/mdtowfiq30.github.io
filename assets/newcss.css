@@ -136,10 +136,12 @@ body.dark-theme {
   color: var(--title-color);
   margin-right: var(--mb-1);
   cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease; /* Smooth transition */
 }
 
 .change-theme:hover {
   color: var(--first-color);
+  transform: scale(1.2);
 }
 
 /*================= Base ===============*/
