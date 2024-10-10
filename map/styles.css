@@ -6,87 +6,77 @@ body {
 
 /* Navigation Bar Styles */
 .navbar {
-    background-color: #f6f6f2; /* Dark color */
-    color: #333333; /* White text */
-    padding: 15px 20px; /* Padding around the navbar */
-    display: flex; /* Flexbox for layout */
-    justify-content: space-between; /* Space between brand and links */
-    align-items: center; /* Center items vertically */
-    position: fixed; /* Fixed position */
-    top: 0; /* Stick to the top */
-    width: 100%; /* Full width */
-    z-index: 1000; /* On top of other content */
-    overflow-x: auto; /* Enable horizontal scrolling */
-    white-space: nowrap; /* Prevent items from wrapping */
+    background-color: #f6f6f2;
+    color: #333333;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+    white-space: nowrap; /* Prevent wrapping by default */
 }
 
 .navbar-brand {
-    font-size: 26px; /* Larger font size */
-    font-weight: bold; /* Bold text */
-    color: #333333; /* Gold color to make it stand out */
-    text-decoration: none; /* Remove underline */
-    transition: color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+    font-size: 26px;
+    font-weight: bold;
+    color: #333333;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
-/* Brand hover effect */
 .navbar-brand:hover {
-    color: #fff; /* Slightly lighter gold on hover */
-    transform: scale(1.1); /* Slight zoom on hover */
+    color: #fff;
+    transform: scale(1.1);
 }
+
 .navbar-links {
-    list-style: none; /* Remove bullet points */
-    padding: 0; /* No padding */
-    margin: 0; /* No margin */
-    display: flex; /* Flexbox for layout */
-    justify-content: flex-end; /* Align links to the right */
-    flex-grow: 1; /* Allow this section to grow */
-    transition: color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: flex-end;
+    flex-grow: 1;
+    flex-wrap: wrap; /* Allow wrapping */
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .navbar-links li {
-    margin: 0 40px; /* Space between links */
+    margin: 0 40px;
 }
 
 .navbar-links a {
-    color: #333333; /* White link text */
-    text-decoration: none; /* No underline */
-    font-size: 18px; /* Link text size */
+    color: #333333;
+    text-decoration: none;
+    font-size: 18px;
 }
 
-/* Change link color on hover */
-.navbar-links :hover {
-    text-decoration: underline; /* Underline on hover */
-    transform: scale(1.1); /* Slight zoom on hover */
+.navbar-links a:hover {
+    text-decoration: underline;
+    transform: scale(1.1);
 }
 
 /* Map Container */
 #map {
-    height: calc(100vh - 70px); /* Height of the map minus navbar height */
-    width: 100%; /* Width of the map */
-    margin-top: 70px; /* Push down the map to accommodate the navbar */
+    height: calc(100vh - 70px);
+    width: 100%;
+    margin-top: 70px;
 }
 
-.download-button {
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #28a745; /* Green background */
-    color: white; /* White text */
-    border: none; /* No border */
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor */
-}
-
-/* Weather Section Styles */
+/* Weather Section Styles (shown on larger screens) */
 #weather-section {
-    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+    background-color: rgba(255, 255, 255, 0.9);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     position: absolute;
-    top: 35%; /* Adjust position */
-    left: 20px; /* Adjust position */
-    z-index: 1001; /* Above the map */
-    max-width: 250px; /* Limit width */
+    top: 35%;
+    left: 20px;
+    z-index: 1001;
+    max-width: 250px;
 }
 
 #weather-section label {
@@ -99,31 +89,28 @@ body {
     width: 100%;
     padding: 5px;
     font-size: 16px;
-    
-
 }
 
 /* Weather Display */
 #weather {
-    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+    background-color: rgba(255, 255, 255, 0.9);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     position: absolute;
-    top: 50%; /* Adjust position */
-    left: 20px; /* Adjust position */
-    z-index: 1001; /* Above the map */
-    max-width: 250px; /* Limit width */
+    top: 50%;
+    left: 20px;
+    z-index: 1001;
+    max-width: 250px;
 }
 
 #weather h2 {
-    font-size: 18px; /* Smaller title */
+    font-size: 18px;
 }
 
 #weather p {
     margin: 5px 0;
 }
-
 
 /* Upload CSV Button Styles */
 .upload-container {
@@ -156,4 +143,111 @@ body {
 
 input[type="file"] {
     display: none;
+}
+
+/* Download Button Container for mobile (shown on smaller screens) */
+.download-container {
+
+    display: none;
+}
+
+/* Media Queries for Responsive Design */
+
+/* Tablet and Below (max-width: 768px) */
+@media (max-width: 768px) {
+    /* Navigation Bar Adjustments */
+    .navbar {
+        padding: 10px 15px; /* Reduce padding */
+    }
+
+    .navbar-brand {
+        font-size: 22px; /* Reduce font size */
+    }
+
+    .navbar-links li {
+        margin: 0 20px; /* Reduce margin between links */
+    }
+
+    
+    .navbar-links a {
+        font-size: 16px; /* Reduce font size */
+    }
+
+    /* Hide Weather Section */
+    #weather-section,
+    #weather,
+    #divisionSelect {
+        display: none;
+    }
+
+    /* Adjust Upload CSV Button Position */
+    .upload-container {
+        top: 95%;
+        right: auto;
+        bottom: 50px; /* Position above download button */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+    }
+
+    /* Adjust Download Button Container */
+    .download-container {
+        display: block;
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+        background-color: #28a745;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .download-button {
+        font-size: 12px;
+        padding: 6px;
+    }
+}
+
+/* Mobile Devices (max-width: 600px) */
+@media (max-width: 600px) {
+    /* Further Navigation Bar Adjustments */
+    .navbar {
+        padding: 8px 10px; /* Further reduce padding */
+    }
+
+    .navbar-brand {
+        font-size: 20px; /* Further reduce font size */
+    }
+
+    .navbar-links li {
+        margin: 0 10px; /* Further reduce margin between links */
+    }
+
+    .navbar-links a {
+        font-size: 14px; /* Further reduce font size */
+    }
+
+    /* Adjust Upload CSV Button Position */
+    .upload-container {
+        bottom: 100px; /* Adjust position to accommodate download button */
+        width: 100%;
+        padding: 8px;
+    }
+
+    /* Adjust Download Button Container */
+    .download-container {
+        padding: 8px;
+        
+    }
+
+    .download-button {
+        font-size: 14px;
+        padding: 8px;
+        background-color: #28a745;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
 }
