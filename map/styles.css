@@ -1,0 +1,159 @@
+/* Body Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Navigation Bar Styles */
+.navbar {
+    background-color: #f6f6f2; /* Dark color */
+    color: #333333; /* White text */
+    padding: 15px 20px; /* Padding around the navbar */
+    display: flex; /* Flexbox for layout */
+    justify-content: space-between; /* Space between brand and links */
+    align-items: center; /* Center items vertically */
+    position: fixed; /* Fixed position */
+    top: 0; /* Stick to the top */
+    width: 100%; /* Full width */
+    z-index: 1000; /* On top of other content */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevent items from wrapping */
+}
+
+.navbar-brand {
+    font-size: 26px; /* Larger font size */
+    font-weight: bold; /* Bold text */
+    color: #333333; /* Gold color to make it stand out */
+    text-decoration: none; /* Remove underline */
+    transition: color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+/* Brand hover effect */
+.navbar-brand:hover {
+    color: #fff; /* Slightly lighter gold on hover */
+    transform: scale(1.1); /* Slight zoom on hover */
+}
+.navbar-links {
+    list-style: none; /* Remove bullet points */
+    padding: 0; /* No padding */
+    margin: 0; /* No margin */
+    display: flex; /* Flexbox for layout */
+    justify-content: flex-end; /* Align links to the right */
+    flex-grow: 1; /* Allow this section to grow */
+    transition: color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+.navbar-links li {
+    margin: 0 40px; /* Space between links */
+}
+
+.navbar-links a {
+    color: #333333; /* White link text */
+    text-decoration: none; /* No underline */
+    font-size: 18px; /* Link text size */
+}
+
+/* Change link color on hover */
+.navbar-links :hover {
+    text-decoration: underline; /* Underline on hover */
+    transform: scale(1.1); /* Slight zoom on hover */
+}
+
+/* Map Container */
+#map {
+    height: calc(100vh - 70px); /* Height of the map minus navbar height */
+    width: 100%; /* Width of the map */
+    margin-top: 70px; /* Push down the map to accommodate the navbar */
+}
+
+.download-button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #28a745; /* Green background */
+    color: white; /* White text */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
+}
+
+/* Weather Section Styles */
+#weather-section {
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 35%; /* Adjust position */
+    left: 20px; /* Adjust position */
+    z-index: 1001; /* Above the map */
+    max-width: 250px; /* Limit width */
+}
+
+#weather-section label {
+    font-size: 16px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+#divisionSelect {
+    width: 100%;
+    padding: 5px;
+    font-size: 16px;
+    
+
+}
+
+/* Weather Display */
+#weather {
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 50%; /* Adjust position */
+    left: 20px; /* Adjust position */
+    z-index: 1001; /* Above the map */
+    max-width: 250px; /* Limit width */
+}
+
+#weather h2 {
+    font-size: 18px; /* Smaller title */
+}
+
+#weather p {
+    margin: 5px 0;
+}
+
+
+/* Upload CSV Button Styles */
+.upload-container {
+    position: absolute;
+    top: 16%;
+    right: 13%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: auto;
+    text-align: center;
+}
+
+.upload-label {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.upload-label:hover {
+    background-color: #0056b3;
+}
+
+input[type="file"] {
+    display: none;
+}

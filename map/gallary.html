@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Map Showcase with Arrows</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .header {
+      background-color: #333;
+      color: #fff;
+      padding: 15px;
+      text-align: center;
+      font-size: 24px;
+      width: 100%;
+    }
+
+    .map-container {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 70vh;
+      width: 90vw;
+    }
+
+    .map-container img {
+      max-width: 100%;
+      max-height: 100%;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 24px;
+      border: none;
+    }
+
+    .arrow-left {
+      left: 20px;
+    }
+
+    .arrow-right {
+      right: 20px;
+    }
+
+    .arrow:hover {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">Map Showcase</div>
+
+  <div class="map-container">
+    <button class="arrow arrow-left" id="prevBtn">&#10094;</button>
+    <img id="mapImage" src="gallary/bangladesh_soil_texture_map.png" alt="Map">
+    <button class="arrow arrow-right" id="nextBtn">&#10095;</button>
+  </div>
+
+  <script>
+    // Array of map image paths
+    const maps = [
+      'gallary/precipitation.png',
+      'gallary/river_shed.png',
+      "gallary/bangladesh_soil_texture_map.png"
+      // Add more map images here as needed
+    ];
+
+    let currentIndex = 0;
+
+    // Function to update the displayed image
+    function updateImage(index) {
+      document.getElementById('mapImage').src = maps[index];
+    }
+
+    // Event listener for the "previous" button
+    document.getElementById('prevBtn').addEventListener('click', function() {
+      currentIndex = (currentIndex === 0) ? maps.length - 1 : currentIndex - 1;
+      updateImage(currentIndex);
+    });
+
+    // Event listener for the "next" button
+    document.getElementById('nextBtn').addEventListener('click', function() {
+      currentIndex = (currentIndex === maps.length - 1) ? 0 : currentIndex + 1;
+      updateImage(currentIndex);
+    });
+  </script>
+  
+</body>
+</html>
