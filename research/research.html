@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>PDF Reader</title>
+  <link rel="stylesheet" href="main.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <header class="pdf-reader-header">
+    <h1>PDF Reader</h1>
+    <!-- Home Page Button -->
+    <div class="navigation">
+      <a href="../index.html" class="home-button">Home Page</a>
+    </div>
+    <div class="pdf-selector">
+      <label for="pdfSelect">Select a PDF to view:</label>
+      <select id="pdfSelect">
+        <option value="towfiq thesis.pdf">Thesis PPT</option>
+        
+      </select>
+      
+    </div>
+  </header>
+
+  <!-- PDF Viewer Container -->
+  <div class="pdf-container">
+    <canvas id="pdfCanvas"></canvas>
+  </div>
+
+  
+
+  <script src="script.js"></script>
+</body>
+</html>
