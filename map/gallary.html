@@ -15,6 +15,7 @@
       align-items: center;
       justify-content: center;
       height: 100vh;
+      position: relative; /* Allows footer to position at the bottom */
     }
 
     .header {
@@ -67,6 +68,17 @@
     .arrow:hover {
       background-color: rgba(0, 0, 0, 0.7);
     }
+
+    .footer {
+      position: absolute; /* Positions the footer at the bottom of the page */
+      bottom: 10px; /* Space from the bottom */
+      text-align: center;
+      width: 100%;
+      background-color: #333;
+      color: white;
+      padding: 10px;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
@@ -79,12 +91,18 @@
     <button class="arrow arrow-right" id="nextBtn">&#10095;</button>
   </div>
 
+  <div class="footer">
+    &copy; Md Towfiq Elahi | Email: mdtowfiq600@gmail.com
+  </div>
+
   <script>
     // Array of map image paths
     const maps = [
       'gallary/precipitation.png',
       'gallary/river_shed.png',
-      "gallary/bangladesh_soil_texture_map.png"
+      "gallary/bangladesh_soil_texture_map.png",
+      "gallary/chittagong forest 2019.png",
+      "gallary/chittagong_dem.png"
       // Add more map images here as needed
     ];
 
