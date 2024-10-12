@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bangladesh Map with GeoJSON Overlay</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="https://mdtowfiq30.github.io/#" target="_blank" class="navbar-brand">Md Towfiq Elahi</a>
+        <ul class="navbar-links">
+            <li><a href="about.html">About</a></li>
+            <li><a href="https://mdtowfiq30.github.io/#portfolio">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="gallary.html">Map</a></li>
+        </ul>
+    </nav>
+
+    <div id="map"></div>
+
+    <!-- Weather Section (shown only on larger screens) -->
+    <div id="weather-section">
+        <label for="divisionSelect">Select Division:</label>
+        <select id="divisionSelect">
+            <option value="Chittagong">Chittagong</option>
+            <option value="Dhaka">Dhaka</option>
+            <option value="Khulna">Khulna</option>
+            <option value="Rajshahi">Rajshahi</option>
+            <option value="Barisal">Barisal</option>
+            <option value="Sylhet">Sylhet</option>
+            <option value="Rangpur">Rangpur</option>
+            <option value="Mymensingh">Mymensingh</option>
+        </select>
+    </div>
+
+    <div id="weather"></div> <!-- Weather Display -->
+
+    <!-- Upload CSV Button Section -->
+    <div class="upload-container">
+        <label for="csvFile" class="upload-label">Upload CSV</label>
+        <input type="file" id="csvFile" accept=".csv" />
+    </div>
+
+    <!-- Icon for Layer Control (for smaller screens) -->
+    <div id="layer-icon" class="layer-icon">
+        &#9776; <!-- Hamburger icon -->
+    </div>
+
+   
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+    <script src="weather.js"></script> <!-- Weather script file -->
+</body>
+</html>
