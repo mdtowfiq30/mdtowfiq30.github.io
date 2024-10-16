@@ -1,12 +1,12 @@
+%%writefile app.py
 import streamlit as st
 import tensorflow as tf
 import os
 import gdown
-import cv2
-from PIL import Image, ImageOps
 import numpy as np
-from tensorflow.keras.preprocessing import image
+from tensorflow.keras.preprocessing import image as keras_image
 from PIL import Image
+import matplotlib.pyplot as plt
 
 # Define the categories for your classification
 categories = ['Fire', 'Smoke']
@@ -25,28 +25,23 @@ def load_model():
     model = tf.keras.models.load_model(model_path)
     return model
 
+# Load the model with a spinner
 with st.spinner('Loading model...'):
     model = load_model()
 
 # App title
-st.write("""
-         # Fire or Smoke Classification
-         """
-         )
+st.title("Fire or Smoke Classification")
 
 # File uploader for the user to upload an image
-file = st.file_uploader("Please upload a brain scan file", type=["jpg", "png"])
-
-#--------------------------------------------------
-
+file = st.file_uploader("Please upload an image file", type=["jpg", "png"])
 
 # Check if the user uploaded a file
 if file is None:
-    st.text("Please upload an image file")
+    st.text("Please upload an image file.")
 else:
     # Load the image
-    image_for_testing = load_image(file)
-    
+    image_for_testing = Image.open(file)
+
     # Preprocess the image for prediction
     test_image = keras_image.img_to_array(image_for_testing)
     test_image = keras_image.smart_resize(test_image, (150, 150))  # Resize the image
@@ -56,14 +51,15 @@ else:
     # Make predictions
     result = (model.predict(test_image) > 0.5).astype("int32")
 
-    Catagories=['Fire','Smoke']
+    # Display the uploaded image
+    st.image(image_for_testing, caption="Uploaded Image", use_column_width=True)
 
-    image_show=PIL.Image.open(image_for_testing)
-    plt.imshow(image_show)
+    # Display prediction result
+    prediction = categories[int(result[0][0])]
+    st.write(f"This image most likely belongs to: **{prediction}**.")
 
-    plt.title(Catagories[int(result[0][0])])
-    
-    print(
-    f"This image most likely belongs to {Catagories[int(result[0][0])]} ."
-    
-)
+    # Optionally display the prediction with matplotlib
+    plt.imshow(image_for_testing)
+    plt.title(f"Predicted: {prediction}")
+    plt.axis('off')  # Hide axes
+    plt.show()
