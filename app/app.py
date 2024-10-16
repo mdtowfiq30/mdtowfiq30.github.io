@@ -34,7 +34,7 @@ st.write("""
 
 # File uploader for the user to upload an image
 file = st.file_uploader("Please upload a brain scan file", type=["jpg", "png"])
-st.set_option('deprecation.showfileUploaderEncoding', False)
+
 
 # Function to preprocess the image and make predictions
 def import_and_predict(image_data, model):
