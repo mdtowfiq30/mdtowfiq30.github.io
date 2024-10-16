@@ -41,6 +41,8 @@ def import_and_predict(image_data, model):
     size = (150, 150)    
     image = ImageOps.fit(image_data, size, Image.LANCZOS)
     image = np.asarray(image) / 255.0  # Normalize the image
+    # Ensure the image is in the correct format before conversion
+    image = (image * 255).astype(np.uint8)  # Convert from float [0, 1] to uint8 [0, 255]
     img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     
     img_reshape = img[np.newaxis, ...]  # Reshape for model input
