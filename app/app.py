@@ -67,7 +67,7 @@ if file is None:
     st.text("Please upload an image file.")
 else:
     # Load the image
-    image_for_testing = Image.open(file).convert("RGB")
+    image_for_testing = Image.convert("RGB")
 
     # Preprocess the image for prediction
     test_image = keras_image.img_to_array(image_for_testing)
