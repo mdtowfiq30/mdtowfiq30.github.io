@@ -86,11 +86,11 @@ fetch('https://raw.githubusercontent.com/mdtowfiq30/web_map/main/water_body.geoj
     });
 
 // Add the NDVI overlay
-const NDVIMap = L.tileLayer('https://earthengine.googleapis.com/v1/projects/ee-mdtowfiq300/maps/8d6b10965c8a23f7df2521fa2270a8f9-9dea3d0792a50105a7fa915d5f67bbf3/tiles/{z}/{x}/{y}' );
+const NDVIMap = L.tileLayer('https://earthengine.googleapis.com/v1/projects/ee-mdtowfiq300/maps/7a4861d23492bb96e340e448d988ab29-55062a8990c81a5754bad843b0377c88/tiles/{z}/{x}/{y}' );
 
 
 // Add the NDWI overlay (link from GitHub raw file)
-const NDWIdMap = L.tileLayer("https://earthengine.googleapis.com/v1/projects/ee-mdtowfiq300/maps/3b8aee06324d0c9baad6554515d520d4-fe2dbae70e906fe72506c62b04aea346/tiles/{z}/{x}/{y}");
+const NDWIdMap = L.tileLayer("https://earthengine.googleapis.com/v1/projects/ee-mdtowfiq300/maps/ff68de92c03abe5f52fb5f9e7c0ad890-74f038eef7a37fedbe6d1fda4f804920/tiles/{z}/{x}/{y}");
 
 // Function to update layer control
 function updateLayerControl() {
