@@ -81,7 +81,7 @@ st.markdown('<div class="main-title">Mineral Classification</div>', unsafe_allow
 
 # Note to indicate supported minerals
 st.markdown(
-    '<div class="note-section">Note: This model can only classify the following minerals: Biotite, Bornite, Chrysocolla, Malachite, Muscovite, Quartz.</div>', 
+    '<div class="note-section">Note: This model can only classify the following minerals:Quartz, Biotite, Bornite, Chrysocolla, Malachite, Muscovite, .</div>', 
     unsafe_allow_html=True
 )
 
@@ -97,7 +97,7 @@ else:
     img = load_img(file, target_size=(150, 150))
 
     # Display the uploaded image
-    st.image(img, caption="Uploaded Image", use_column_width=True)
+    #st.image(img, caption="Uploaded Image", use_column_width=True)
 
     # Preprocess the image for prediction
     x = img_to_array(img)
