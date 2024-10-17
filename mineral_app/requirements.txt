@@ -4,5 +4,5 @@ numpy
 gdown
 Pillow
 matplotlib
-pill
+pil
 gdown
