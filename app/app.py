@@ -18,7 +18,7 @@ def load_model():
     if not os.path.exists(model_path):
         st.write("Downloading model...")  # User feedback
         # Download the model from Google Drive
-        gdown.download('https://drive.google.com/uc?id=1tfDOIcL7cVBzB8lsarOh0i6RvJG1IfQ9', model_path, quiet=False)
+        gdown.download('https://drive.google.com/uc?id=1AWTM0CbzWqt_pNJKnW2L9SVOauxln3PT', model_path, quiet=False)
     
     # Load the model
     model = tf.keras.models.load_model(model_path)
