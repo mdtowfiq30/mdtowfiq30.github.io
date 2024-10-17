@@ -118,7 +118,7 @@ else:
 
     # Display the uploaded image with the prediction as the title using matplotlib
     pic=Image.open(file)
-    img_resized = pic.resize((30, 30))
+    img_resized = pic.resize((300, 300))
     plt.imshow(img_resized)
     plt.title(f"Predicted: {mineral_name}")
     plt.axis('off')  # Hide axes
