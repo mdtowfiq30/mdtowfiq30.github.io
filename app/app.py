@@ -78,14 +78,11 @@ else:
     # Make predictions
     result = (model.predict(test_image) > 0.5).astype("int32")
 
-    # Display the uploaded image
-    st.image(image_for_testing, caption="Uploaded Image", use_column_width=True)
-
     # Display prediction result in a professional styled box
     prediction = categories[int(result[0][0])]
     st.markdown(f'<div class="result-box">This image most likely belongs to: **{prediction}**.</div>', unsafe_allow_html=True)
 
-    # Optionally display the prediction with matplotlib
+    # Display the uploaded image with the prediction as the title using matplotlib
     plt.imshow(image_for_testing)
     plt.title(f"Predicted: {prediction}")
     plt.axis('off')  # Hide axes
