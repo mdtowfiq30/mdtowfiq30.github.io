@@ -1,0 +1,8 @@
+streamlit
+tensorflow
+numpy
+gdown
+Pillow
+matplotlib
+os
+gdown
