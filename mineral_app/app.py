@@ -117,7 +117,9 @@ else:
     st.markdown(f'<div class="description-box">{description}</div>', unsafe_allow_html=True)
 
     # Display the uploaded image with the prediction as the title using matplotlib
-    plt.imshow(Image.open(file))
+    pic=Image.open(file)
+    img_resized = pic.resize((300, 300))
+    plt.imshow(img_resized)
     plt.title(f"Predicted: {mineral_name}")
     plt.axis('off')  # Hide axes
     st.pyplot(plt)
