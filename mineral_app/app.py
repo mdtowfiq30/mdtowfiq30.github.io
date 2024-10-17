@@ -81,7 +81,7 @@ st.markdown('<div class="main-title">Mineral Classification</div>', unsafe_allow
 
 # Note to indicate supported minerals
 st.markdown(
-    '<div class="note-section">Note: This model can only classify the following minerals:Quartz, Biotite, Bornite, Chrysocolla, Malachite, Muscovite, .</div>', 
+    '<div class="note-section">Note: This model can only classify the following minerals: Quartz, Biotite, Bornite, Chrysocolla, Malachite, Muscovite, .</div>', 
     unsafe_allow_html=True
 )
 
