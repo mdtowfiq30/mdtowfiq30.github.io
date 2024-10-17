@@ -5,74 +5,85 @@ import gdown
 import numpy as np
 from tensorflow.keras.preprocessing import image as keras_image
 from PIL import Image
+import matplotlib.pyplot as plt
 
-# Load your model here
-def load_model():
-    model_path = 'my_model.hdf5'
-    if not os.path.exists(model_path):
-        st.write("Downloading model...")  # User feedback
-        gdown.download('https://drive.google.com/uc?id=1tfDOIcL7cVBzB8lsarOh0i6RvJG1IfQ9', model_path, quiet=False)
-    return tf.keras.models.load_model(model_path)
-
-model = load_model()
-
-# Define categories
+# Define the categories for your classification
 categories = ['Fire', 'Smoke']
 
-# Set the title of the app
-st.title("Fire & Smoke Detection App")
+@st.cache_resource  # Efficient caching for loading models
+def load_model():
+    model_path = 'my_model.hdf5'
+    
+    # Check if the model already exists locally
+    if not os.path.exists(model_path):
+        st.write("Downloading model...")  # User feedback
+        # Download the model from Google Drive
+        gdown.download('https://drive.google.com/uc?id=1tfDOIcL7cVBzB8lsarOh0i6RvJG1IfQ9', model_path, quiet=False)
+    
+    # Load the model
+    model = tf.keras.models.load_model(model_path)
+    return model
 
-# Add custom HTML/CSS for styling
-st.markdown("""
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+# Load the model with a spinner
+with st.spinner('Loading model...'):
+    model = load_model()
+
+# Custom styling for a more professional look
+st.markdown(
+    """
     <style>
-    body {
-        font-family: 'Roboto', sans-serif;
-        background-color: #fafafa;
-        margin: 0;
-        padding: 20px;
-    }
-    h1 {
-        color: #333;
+    .main-title {
+        font-size: 36px;
+        color: #2E86C1;
         text-align: center;
-        font-size: 2.5em;
+        font-weight: bold;
         margin-bottom: 20px;
     }
-    .custom-button {
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-        transition: background-color 0.3s;
+    .upload-section {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 18px;
     }
-    .custom-button:hover {
-        background-color: #45a049;
+    .result-box {
+        font-size: 24px;
+        font-weight: bold;
+        color: #1ABC9C;
+        text-align: center;
+        margin-top: 30px;
     }
     </style>
-    """, unsafe_allow_html=True)
+    """, unsafe_allow_html=True
+)
 
-# File uploader for image
-file = st.file_uploader("Upload an image for detection", type=["jpg", "png"])
+# App title in the center
+st.markdown('<div class="main-title">Fire or Smoke Classification</div>', unsafe_allow_html=True)
 
-if file is not None:
+# File uploader section on the main page
+st.markdown('<div class="upload-section">Upload an image (jpg or png) to classify:</div>', unsafe_allow_html=True)
+file = st.file_uploader("", type=["jpg", "png"])
+
+# Check if the user uploaded a file
+if file is None:
+    st.text("Please upload an image file.")
+else:
     # Load the image
     image_for_testing = Image.open(file).convert("RGB")
 
-    # Preprocess the image
+    # Preprocess the image for prediction
     test_image = keras_image.img_to_array(image_for_testing)
-    test_image = keras_image.smart_resize(test_image, (150, 150))
-    test_image = test_image / 255.0
-    test_image = np.expand_dims(test_image, axis=0)
+    test_image = keras_image.smart_resize(test_image, (150, 150))  # Resize the image
+    test_image = test_image / 255.0  # Normalize the image
+    test_image = np.expand_dims(test_image, axis=0)  # Expand dimensions for the model
 
     # Make predictions
     result = (model.predict(test_image) > 0.5).astype("int32")
 
-    # Show the uploaded image
-    st.image(image_for_testing, caption="Uploaded Image", use_column_width=True)
-
-    # Show the prediction result
+    # Display prediction result in a professional styled box
     prediction = categories[int(result[0][0])]
-    st.write(f"This image most likely belongs to: **{prediction}**.")
+    st.markdown(f'<div class="result-box">This image most likely belongs to: **{prediction}**.</div>', unsafe_allow_html=True)
+
+    # Display the uploaded image with the prediction as the title using matplotlib
+    plt.imshow(image_for_testing)
+    plt.title(f"Predicted: {prediction}")
+    plt.axis('off')  # Hide axes
+    st.pyplot(plt)
