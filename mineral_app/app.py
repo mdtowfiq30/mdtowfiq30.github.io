@@ -1,9 +1,11 @@
-from tensorflow.keras.utils import load_img, img_to_array
-import numpy as np
 import streamlit as st
 import tensorflow as tf
 import os
 import gdown
+import numpy as np
+from tensorflow.keras.utils import load_img, img_to_array
+from PIL import Image
+import matplotlib.pyplot as plt
 
 # Define categories and their descriptions
 Categories = {
@@ -32,13 +34,60 @@ def load_model():
 with st.spinner('Loading model...'):
     model = load_model()
 
-# App title
-st.write("""
-         # Mineral Classification
-         """)
+# Custom styling for a more professional look
+st.markdown(
+    """
+    <style>
+    .main-title {
+        font-size: 36px;
+        color: #2E86C1;
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+    .upload-section {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 18px;
+    }
+    .note-section {
+        font-size: 16px;
+        color: #E74C3C;
+        text-align: center;
+        margin-top: 10px;
+    }
+    .result-box {
+        font-size: 24px;
+        font-weight: bold;
+        color: #1ABC9C;
+        text-align: center;
+        margin-top: 30px;
+    }
+    .description-box {
+        font-size: 16px;
+        color: #34495E;
+        text-align: center;
+        margin-top: 10px;
+        padding: 10px;
+        border: 1px solid #D5DBDB;
+        border-radius: 5px;
+    }
+    </style>
+    """, unsafe_allow_html=True
+)
 
-# File uploader for the user to upload an image
-file = st.file_uploader("Please upload a mineral image", type=["jpg", "png", "jpeg"])
+# App title in the center
+st.markdown('<div class="main-title">Mineral Classification</div>', unsafe_allow_html=True)
+
+# Note to indicate supported minerals
+st.markdown(
+    '<div class="note-section">Note: This model can only classify the following minerals: Biotite, Bornite, Chrysocolla, Malachite, Muscovite, Quartz.</div>', 
+    unsafe_allow_html=True
+)
+
+# File uploader section on the main page
+st.markdown('<div class="upload-section">Upload a mineral image (jpg, png, jpeg):</div>', unsafe_allow_html=True)
+file = st.file_uploader("", type=["jpg", "png", "jpeg"])
 
 # Check if the user uploaded a file
 if file is None:
@@ -55,11 +104,20 @@ else:
     x /= 255.0
     x = np.expand_dims(x, axis=0)
     images = np.vstack([x])
+
     # Predict the class of the image
     classes = model.predict(images)
     classification = np.argmax(classes)
 
-    # Display the prediction result and description
+    # Get the prediction result and description
     mineral_name, description = Categories[classification]
-    st.write(f"### This image most likely belongs to: {mineral_name}")
-    st.write(description)
+
+    # Display the prediction result and description
+    st.markdown(f'<div class="result-box">This image most likely belongs to: **{mineral_name}**.</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="description-box">{description}</div>', unsafe_allow_html=True)
+
+    # Display the uploaded image with the prediction as the title using matplotlib
+    plt.imshow(Image.open(file))
+    plt.title(f"Predicted: {mineral_name}")
+    plt.axis('off')  # Hide axes
+    st.pyplot(plt)
