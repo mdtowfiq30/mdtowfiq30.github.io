@@ -7,14 +7,13 @@ from tensorflow.keras.utils import load_img, img_to_array
 from PIL import Image
 import matplotlib.pyplot as plt
 
-# Define categories and their descriptions
+# Define categories and their descriptions for your mineral classification
 Categories = {
-    0: ("Biotite", "Biotite is a common phyllosilicate mineral within the mica group, commonly found in igneous and metamorphic rocks."),
-    1: ("Bornite", "Bornite is an important copper ore mineral found in copper deposits. It has a brown to copper-red color on fresh surfaces."),
-    2: ("Chrysocolla", "Chrysocolla is a hydrated copper phyllosilicate mineral with a cyan (blue-green) color, often associated with copper mining."),
+    0: ("Amber", "Amber is fossilized tree resin that has been appreciated for its color and natural beauty since Neolithic times."),
+    1: ("Biotite", "Biotite is a common phyllosilicate mineral within the mica group, commonly found in igneous and metamorphic rocks."),
+    2: ("Bornite", "Bornite is an important copper ore mineral found in copper deposits. It has a brown to copper-red color on fresh surfaces."),
     3: ("Malachite", "Malachite is a green copper carbonate hydroxide mineral, often found in association with copper deposits."),
-    4: ("Muscovite", "Muscovite is a silicate mineral in the mica group, typically found in metamorphic rocks. It has a pale color and is highly reflective."),
-    5: ("Quartz", "Quartz is one of the most common minerals in the Earth's crust. It comes in many forms, but is best known for its glass-like clarity.")
+    4: ("Quartz", "Quartz is one of the most common minerals in the Earth's crust. It comes in many forms, but is best known for its glass-like clarity.")
 }
 
 @st.cache_resource  # Efficient caching for loading models
@@ -81,7 +80,7 @@ st.markdown('<div class="main-title">Mineral Classification</div>', unsafe_allow
 
 # Note to indicate supported minerals
 st.markdown(
-    '<div class="note-section">Note: This model can only classify the following minerals: Quartz, Biotite, Bornite, Chrysocolla, Malachite, Muscovite, .</div>', 
+    '<div class="note-section">Note: This model can only classify the following minerals: Quartz, Amber, Biotite, Bornite, Malachite.</div>', 
     unsafe_allow_html=True
 )
 
@@ -96,18 +95,14 @@ else:
     # Load the image
     img = load_img(file, target_size=(150, 150))
 
-    # Display the uploaded image
-    #st.image(img, caption="Uploaded Image", use_column_width=True)
-
     # Preprocess the image for prediction
     x = img_to_array(img)
     x /= 255.0
     x = np.expand_dims(x, axis=0)
-    images = np.vstack([x])
 
     # Predict the class of the image
-    classes = model.predict(images)
-    classification = np.argmax(classes)
+    predictions = model.predict(x)
+    classification = np.argmax(predictions)
 
     # Get the prediction result and description
     mineral_name, description = Categories[classification]
@@ -117,7 +112,7 @@ else:
     st.markdown(f'<div class="description-box">{description}</div>', unsafe_allow_html=True)
 
     # Display the uploaded image with the prediction as the title using matplotlib
-    pic=Image.open(file)
+    pic = Image.open(file)
     img_resized = pic.resize((300, 300))
     plt.imshow(img_resized)
     plt.title(f"Predicted: {mineral_name}")
