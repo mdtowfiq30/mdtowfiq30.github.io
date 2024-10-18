@@ -18,13 +18,13 @@ Categories = {
 
 @st.cache_resource  # Efficient caching for loading models
 def load_model():
-    model_path = 'model_l2_regularization.hdf5'
+    model_path = 'model1_newdata_regularization.hdf5'
     
     # Check if the model already exists locally
     if not os.path.exists(model_path):
         st.write("Downloading model...")  # User feedback
         # Download the model from Google Drive
-        gdown.download('https://drive.google.com/uc?id=1UnzJgO0T__lpwlGqax7t7v2lLx35bL4N', model_path, quiet=False)
+        gdown.download('https://drive.google.com/uc?id=1cBw4H8qTrOjJ5G6TI2gz_9p08-6XmNVi', model_path, quiet=False)
     
     # Load the model
     model = tf.keras.models.load_model(model_path)
