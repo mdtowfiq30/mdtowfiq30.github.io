@@ -599,7 +599,7 @@ img {
 .about__buttons {
   display: flex;
   justify-content: center;
-  
+  margin-bottom: var(--mb-2-5);
 }
 
 
