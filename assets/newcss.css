@@ -560,6 +560,18 @@ img {
 
 
 /*===================== About ==================*/
+
+.about__container {
+  background-color: rgba(255, 255, 255, 0); /* White background */
+  border-radius: 10px; /* Rounded corners */
+  padding: 2rem; /* Padding inside the container */
+  margin: 1rem auto; /* Space above and below the container */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  max-width: 800px; /* Max width for the container */
+  width: 100%; /* Ensure the container takes full available width */
+  margin-bottom: 15%;
+}
+
 .about__img {
   width: 170px;
   border-radius: 500%;
@@ -605,6 +617,17 @@ img {
 
 /*===================== SKILLS =========================*/
 
+
+.skill__container {
+  background-color: rgba(255, 255, 255, 0); /* White background */
+  border-radius: 10px; /* Rounded corners */
+  padding: 2rem; /* Padding inside the container */
+  margin: 1rem auto; /* Space above and below the container */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  max-width: 900px; /* Max width for the container */
+  width: 100%; /* Ensure the container takes full available width */
+  margin-bottom: 10%;
+}
 .skills__container {
   row-gap: 0;
   
@@ -1159,8 +1182,9 @@ img {
   padding: 2rem; /* Padding inside the container */
   margin: 1rem auto; /* Space above and below the container */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow effect */
-  max-width: 600px; /* Max width for the container */
+  max-width: 650px; /* Max width for the container */
   width: 100%; /* Ensure the container takes full available width */
+  margin-bottom: 15%;
 }
 
 .volunteer__card {
