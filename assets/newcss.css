@@ -569,7 +569,7 @@ img {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow effect */
   max-width: 800px; /* Max width for the container */
   width: 100%; /* Ensure the container takes full available width */
-  margin-bottom: 15%;
+  margin-bottom: 10%;
 }
 
 .about__img {
