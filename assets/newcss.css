@@ -395,7 +395,7 @@ img {
 .home__description {
   margin-bottom: var(--mb-2);
   font-size: 1rem;
-  text-align: center;
+  text-align: left;
   margin-top: 10px;
   
   
