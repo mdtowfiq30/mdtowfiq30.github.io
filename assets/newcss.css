@@ -316,6 +316,16 @@ img {
 
 /*========HOME=============*/
 
+.Home__container {
+  background-color: rgba(255, 255, 255, 0); /* White background */
+  border-radius: 10px; /* Rounded corners */
+  padding: 2rem; /* Padding inside the container */
+  margin: 1rem auto; /* Space above and below the container */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  max-width: 1150px; /* Max width for the container */
+  width: 100%; /* Ensure the container takes full available width */
+  margin-bottom: 15%;
+}
 .home__container {
   gap: 1rem;
   width: 75%; /* Increase the width percentage */
