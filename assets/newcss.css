@@ -39,6 +39,18 @@
 
 
   /* Button background color and text color */
+
+.award.button--flex {
+    background-color: #C2EDCE;  /* Button background color */
+    color: #000; /* Button text color (adjust as needed) */
+    border: none; /* Remove default border */
+    padding: 4px 20px; /* Add padding for a better appearance */
+    border-radius: 5px; /* Optional: rounded corners */
+    display: inline-flex; /* Align icon and text horizontally */
+    align-items: center;
+    justify-content: center;
+  }
+  
 button, .button {
   background-color: #C2EDCE;  /* Button background color */
   color: #000; /* Button text color (adjust as needed) */
