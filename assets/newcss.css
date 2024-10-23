@@ -443,8 +443,8 @@ img {
 
   .home__img {
     position: relative;
-    width: 300px; /* Keep image large, but responsive */
-    height: 300px;
+    width: 100px; /* Keep image large, but responsive */
+    height: 100px;
     max-width: 350px; /* Max limit for image size */
     margin: 60px;
   }
