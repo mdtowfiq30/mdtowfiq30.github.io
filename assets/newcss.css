@@ -455,6 +455,7 @@ img {
 
   .home__subtitle, .home__description {
     font-size: 1rem;
+    text-align: center;
   }
 
   .button {
