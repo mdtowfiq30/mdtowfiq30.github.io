@@ -472,6 +472,7 @@ img {
 
   .home__subtitle, .home__description {
     font-size: 0.9rem;
+    text-align: center;
   }
 
   .home__img {
