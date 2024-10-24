@@ -556,6 +556,7 @@ img {
   vertical-align: middle;
   align-items: center;
   display: inline-flex;
+  margin-bottom: 20px;
 }
 
 .home__social-icon img {
