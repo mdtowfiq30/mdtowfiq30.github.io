@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OHS Dashboard</title>
+    <link rel="stylesheet" href="styles/ohs.css">  <!-- Restored external CSS -->
+</head>
+<body>
+    <header>
+        <h1>OHS Dashboard</h1>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </header>
+    
+    <div class="container">
+        <h2>Pending PPE Requests</h2>
+        <table id="requestsTable">
+            <thead>
+                <tr>
+                    <th>Employee Name</th>
+                    <th>Employee ID</th>
+                    <th>Requested PPE</th>
+                    <th>Request Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Requests will be populated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function loadPendingRequests() {
+            fetch('http://localhost:3000/get-requests')
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Fetched Data:", data);  // Debugging
+
+                    const tableBody = document.querySelector("#requestsTable tbody");
+                    tableBody.innerHTML = ""; // Clear previous rows
+
+                    if (data.length === 0) {
+                        tableBody.innerHTML = "<tr><td colspan='5'>No pending requests</td></tr>";
+                    } else {
+                        data.forEach(request => {
+                            console.log("Processing request:", request); // Debugging
+
+                            const row = document.createElement("tr");
+                            row.innerHTML = `
+                                <td>${request.name}</td>
+                                <td>${request.employee_id}</td>
+                                <td>${request.ppe}</td>
+                                <td>${request.date_requested ? request.date_requested : "N/A"}</td>
+                                <td>
+                                    <button class="approve-btn" onclick="updateRequest('${request.id}', 'approved')">Approve</button>
+                                    <button class="reject-btn" onclick="updateRequest('${request.id}', 'rejected')">Reject</button>
+                                </td>
+                            `;
+                            tableBody.appendChild(row);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function updateRequest(requestId, status) {
+            fetch('http://localhost:3000/update-request', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: requestId, status: status })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                loadPendingRequests(); // Refresh table
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function logout() {
+            window.location.href = "login.html";  // Redirect to login page
+        }
+
+        // Load requests when the page loads
+        window.onload = loadPendingRequests;
+    </script>
+</body>
+</html>
