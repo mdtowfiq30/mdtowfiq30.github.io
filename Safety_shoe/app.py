@@ -105,7 +105,7 @@ if submit:
     if emp_id:
         filtered_df = df[df["ID"].astype(str) == emp_id]
 
-        # Remove empty rows if any
+        # Remove empty rows (where all columns are NaN)
         filtered_df = filtered_df.dropna(how="all")
 
         if not filtered_df.empty:
