@@ -100,6 +100,9 @@ col1, col2, col3 = st.columns([2, 1, 2])
 with col2:
     submit = st.button("🔎 Submit")
 
+# Create an empty container to hold the results
+results_container = st.empty()
+
 # If Submit Button is Clicked
 if submit:
     if emp_id:
@@ -112,15 +115,15 @@ if submit:
         filtered_df = filtered_df.reset_index(drop=True)
 
         if not filtered_df.empty:
-            # Display results with centered title
-            st.markdown("<h3>Employee Safety Shoe Information</h3>", unsafe_allow_html=True)
+            # Display results with centered title inside the container
+            results_container.markdown("<h3>Employee Safety Shoe Information</h3>", unsafe_allow_html=True)
 
             # Display the table without horizontal scroll and adjust width to container size
-            st.dataframe(filtered_df.style.set_properties(**{'text-align': 'center'}), height=400, use_container_width=True)
+            results_container.dataframe(filtered_df.style.set_properties(**{'text-align': 'center'}), height=400, use_container_width=True)
         else:
-            st.error("❌ Employee ID not found! Please check and try again.")
+            results_container.error("❌ Employee ID not found! Please check and try again.")
     else:
-        st.warning("⚠️ Please enter an Employee ID before submitting.")
+        results_container.warning("⚠️ Please enter an Employee ID before submitting.")
 
 # Add some space after the submit button
 st.write("\n\n")
