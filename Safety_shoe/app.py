@@ -63,7 +63,7 @@ st.markdown(
     /* Table Styling */
     .stDataFrame {
         width: 100% !important;  /* Ensures the table takes the full width */
-        table-layout: fixed;     /* Fixes column width to prevent horizontal scrolling */
+        table-layout: auto;     /* Allow columns to automatically adjust to content */
     }
     </style>
     """,
@@ -86,6 +86,9 @@ with col2:
 if submit:
     if emp_id:
         filtered_df = df[df["ID"].astype(str) == emp_id]
+
+        # Remove empty rows if any
+        filtered_df = filtered_df.dropna(how="all")
 
         if not filtered_df.empty:
             # Display results inside a styled container
