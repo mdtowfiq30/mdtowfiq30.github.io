@@ -58,14 +58,35 @@ st.markdown(
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
         margin-top: 20px;
         font-size: 18px;
+        width: 100%;
+        text-align: left;
+        overflow-x: auto;
     }
 
-    .data-item {
+    /* Center the entire output */
+    .center-output {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+    }
+
+    /* Adjust table display to prevent horizontal scrolling */
+    .table-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+    .table-item {
+        margin-right: 20px;
         margin-bottom: 10px;
-        padding: 8px;
-        background: white;
-        border-radius: 6px;
-        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        background-color: white;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        min-width: 200px;
+        max-width: 250px;
     }
     </style>
     """,
@@ -90,12 +111,18 @@ if submit:
         filtered_df = df[df["ID"].astype(str) == emp_id]
 
         if not filtered_df.empty:
+            st.markdown('<div class="center-output">', unsafe_allow_html=True)
             st.markdown('<div class="data-container">', unsafe_allow_html=True)
+            
+            # Create a container to hold all rows horizontally
+            st.markdown('<div class="table-container">', unsafe_allow_html=True)
+
             for index, row in filtered_df.iterrows():
+                st.markdown('<div class="table-item">', unsafe_allow_html=True)
                 for col in filtered_df.columns:
-                    st.markdown(f'<div class="data-item"><b>{col}:</b> {row[col]}</div>', unsafe_allow_html=True)
+                    st.markdown(f"<b>{col}:</b> {row[col]}<br>", unsafe_allow_html=True)
+                st.markdown('</div>', unsafe_allow_html=True)
+
             st.markdown('</div>', unsafe_allow_html=True)
-        else:
-            st.error("❌ Employee ID not found! Please check and try again.")
-    else:
-        st.warning("⚠️ Please enter an Employee ID before submitting.")
+            st.markdown('</div>', unsafe_allow_html=True)
+            st.markdown('</div>', unsafe_allow_html=Tru
