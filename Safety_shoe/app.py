@@ -67,7 +67,7 @@ st.markdown(
     /* Make the title responsive */
     @media screen and (max-width: 768px) {
         h1 {
-            font-size: 1.5rem;
+            font-size: 1.5rem; /* Reduced font size for smaller screens */
         }
         h3 {
             font-size: 1.2rem;
