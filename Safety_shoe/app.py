@@ -37,10 +37,10 @@ if submit:
         filtered_df = filtered_df.dropna(how="all")
 
         if not filtered_df.empty:
-            # Display results inside a styled container with no horizontal scroll
-            st.write("### Employee Safety Shoe Information")
+            # Display results with centered title
+            st.markdown("<h3 style='text-align: center;'>Employee Safety Shoe Information</h3>", unsafe_allow_html=True)
 
-            # Ensure the entire table fits on the screen without truncation
+            # Display the table without horizontal scroll
             st.dataframe(filtered_df.style.set_properties(**{'text-align': 'center'}), height=400, use_container_width=True)
         else:
             st.error("❌ Employee ID not found! Please check and try again.")
