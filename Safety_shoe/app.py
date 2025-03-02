@@ -57,6 +57,13 @@ st.markdown(
         border-radius: 10px;
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
         margin-top: 20px;
+        overflow-x: auto; /* Ensures content fits */
+    }
+
+    /* Table Styling */
+    .stDataFrame {
+        width: 100% !important;  /* Ensures the table takes the full width */
+        table-layout: fixed;     /* Fixes column width to prevent horizontal scrolling */
     }
     </style>
     """,
@@ -81,12 +88,9 @@ if submit:
         filtered_df = df[df["ID"].astype(str) == emp_id]
 
         if not filtered_df.empty:
-            # Slider to adjust table width
-            width = st.slider("🔧 Adjust Table Width", min_value=600, max_value=1200, value=800)
-
             # Display results inside a styled container
             st.markdown('<div class="data-container">', unsafe_allow_html=True)
-            st.dataframe(filtered_df.style.set_properties(**{'text-align': 'center'}), height=200, width=width)
+            st.dataframe(filtered_df.style.set_properties(**{'text-align': 'center'}), height=400)
             st.markdown('</div>', unsafe_allow_html=True)
         else:
             st.error("❌ Employee ID not found! Please check and try again.")
