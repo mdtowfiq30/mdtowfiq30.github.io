@@ -16,62 +16,8 @@ df = pd.read_excel(output, sheet_name="Raw")
 # Drop "Status" & "Comment" columns
 df = df.drop(columns=["Status", "Comment"])
 
-# Apply Custom CSS Styling
-st.markdown(
-    """
-    <style>
-    /* Title Styling */
-    .title {
-        text-align: center;
-        font-size: 36px;
-        font-weight: bold;
-        color: #2c3e50;
-        margin-bottom: 20px;
-    }
-    
-    /* Input Box Styling */
-    .stTextInput > div > div > input {
-        font-size: 18px;
-        padding: 10px;
-    }
-
-    /* Submit Button */
-    .stButton > button {
-        font-size: 18px;
-        padding: 10px 20px;
-        background-color: #3498db;
-        color: white;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-        transition: 0.3s;
-    }
-    .stButton > button:hover {
-        background-color: #2980b9;
-    }
-
-    /* Data Display Styling */
-    .data-container {
-        background: #f8f9fa;
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        margin-top: 20px;
-        overflow-x: auto; /* Ensures content fits */
-    }
-
-    /* Table Styling */
-    .stDataFrame {
-        width: 100% !important;  /* Ensures the table takes the full width */
-        table-layout: auto;     /* Allow columns to automatically adjust to content */
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
-
 # Title
-st.markdown('<p class="title">👞 Safety Shoe Status Checker</p>', unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: #2c3e50;'>👞 Safety Shoe Status Checker</h1>", unsafe_allow_html=True)
 
 # Search Box & Submit Button
 emp_id = st.text_input("🔍 Enter Employee ID:", "")
@@ -91,10 +37,11 @@ if submit:
         filtered_df = filtered_df.dropna(how="all")
 
         if not filtered_df.empty:
-            # Display results inside a styled container
-            st.markdown('<div class="data-container">', unsafe_allow_html=True)
-            st.dataframe(filtered_df.style.set_properties(**{'text-align': 'center'}), height=400)
-            st.markdown('</div>', unsafe_allow_html=True)
+            # Display results inside a styled container with no horizontal scroll
+            st.write("### Employee Safety Shoe Information")
+
+            # Ensure the entire table fits on the screen without truncation
+            st.dataframe(filtered_df.style.set_properties(**{'text-align': 'center'}), height=400, use_container_width=True)
         else:
             st.error("❌ Employee ID not found! Please check and try again.")
     else:
