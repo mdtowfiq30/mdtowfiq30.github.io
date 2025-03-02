@@ -1,6 +1,9 @@
 import streamlit as st
 import pandas as pd
 
+# ✅ Move set_page_config() to the first line
+st.set_page_config(page_title="Safety Shoe Status", page_icon="👞", layout="centered")
+
 # Google Sheet ID and Sheet Name
 sheet_id = "1MBimD7Tx8H18DFbggiM-lu5C5RR4mTWC"
 sheet_name = "Raw"
@@ -17,9 +20,6 @@ df = load_data()
 
 # Remove Status and Comment columns
 df = df.drop(columns=["Status", "Comment"], errors="ignore")
-
-# Streamlit UI
-st.set_page_config(page_title="Safety Shoe Status", page_icon="👞", layout="centered")
 
 # Custom CSS
 st.markdown("""
