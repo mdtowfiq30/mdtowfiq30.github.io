@@ -76,6 +76,13 @@ st.markdown(
         .stTextInput > div > div > input {
             font-size: 16px;
         }
+        /* Make h3 tags in the Safety Shoe Care Instructions section similar to h1 styling */
+        .safety-care-title {
+            font-size: 1.5rem !important;
+            font-weight: bold;
+            text-align: center;
+            color: #2c3e50;
+        }
     }
     
     /* Ensure table uses full width */
@@ -123,7 +130,7 @@ if submit:
 st.write("\n\n")
 
 # Add instructions in Bangla for safety shoe care
-st.markdown("<h3>🔧 Safety Shoe Care Instructions</h3>", unsafe_allow_html=True)
+st.markdown("<h3 class='safety-care-title'>🔧 Safety Shoe Care Instructions</h3>", unsafe_allow_html=True)
 st.markdown("""
     <ul>
         <li><b>শুকনো জায়গায় রাখুন:</b> ভিজে জুতো শুকানোর জন্য সরাসরি সূর্যালোকের নিচে না রেখে, ছায়াযুক্ত এবং শুকনো জায়গায় রাখুন।</li>
