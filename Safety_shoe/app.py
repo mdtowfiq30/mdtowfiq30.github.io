@@ -1,20 +1,28 @@
 import streamlit as st
 import pandas as pd
+import gdown
+import os
 
 # ✅ Move set_page_config() to the first line
 st.set_page_config(page_title="Safety Shoe Status", page_icon="👞", layout="centered")
 
-# Google Sheet ID and Sheet Name
-sheet_id = "1MBimD7Tx8H18DFbggiM-lu5C5RR4mTWC"
-sheet_name = "Raw"
+# Google Drive Shareable Link
+drive_link = "https://docs.google.com/spreadsheets/d/1MBimD7Tx8H18DFbggiM-lu5C5RR4mTWC/edit?usp=sharing"
 
-# Construct the CSV export URL
-csv_url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
+# Extract File ID from the link
+file_id = drive_link.split("/d/")[1].split("/")[0]
 
-# Function to load data
+# Generate a direct download link
+download_url = f"https://drive.google.com/uc?id={file_id}"
+
+# Download the Excel file
+file_path = "safety_shoes.xlsx"
+gdown.download(download_url, file_path, quiet=False)
+
+# Load the Excel file
 @st.cache_data
 def load_data():
-    return pd.read_csv(csv_url)
+    return pd.read_excel(file_path, sheet_name="Raw")
 
 df = load_data()
 
@@ -56,3 +64,7 @@ if employee_id:
                                                            'border-radius': '5px'}))
     else:
         st.warning("No record found. Please check the Employee ID.")
+
+# Cleanup: Remove the file after loading
+if os.path.exists(file_path):
+    os.remove(file_path)
