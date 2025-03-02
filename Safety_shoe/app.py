@@ -108,9 +108,6 @@ if submit:
         # Remove rows where 'ID' is NaN or empty
         filtered_df = filtered_df[filtered_df["ID"].notna() & (filtered_df["ID"] != "")]
 
-        # Reset index after filtering
-        filtered_df = filtered_df.reset_index(drop=True)
-
         if not filtered_df.empty:
             # Display results with centered title
             st.markdown("<h3>Employee Safety Shoe Information</h3>", unsafe_allow_html=True)
