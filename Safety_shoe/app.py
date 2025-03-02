@@ -25,6 +25,7 @@ st.markdown(
         text-align: center;
         color: #2c3e50;
         font-size: 2rem;
+        font-weight: bold;
     }
     
     /* Subtitle Styling */
@@ -67,7 +68,7 @@ st.markdown(
     /* Make the title responsive */
     @media screen and (max-width: 768px) {
         h1 {
-            font-size: 1.5rem; /* Reduced font size for smaller screens */
+            font-size: 1.5rem !important; /* Force font size change for smaller screens */
         }
         h3 {
             font-size: 1.2rem;
