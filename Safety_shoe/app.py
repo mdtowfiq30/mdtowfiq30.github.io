@@ -25,6 +25,7 @@ st.markdown(
         text-align: center;
         color: #2c3e50;
         font-size: 2rem;
+        margin-bottom: 20px;
     }
     
     /* Subtitle Styling */
@@ -32,6 +33,7 @@ st.markdown(
         text-align: center;
         color: #2c3e50;
         font-size: 1.5rem;
+        margin-bottom: 20px;
     }
 
     /* Input Box Styling */
@@ -50,6 +52,7 @@ st.markdown(
         border: none;
         cursor: pointer;
         transition: 0.3s;
+        width: 100%; /* Make the button take full width on small screens */
     }
     .stButton > button:hover {
         background-color: #2980b9;
@@ -67,13 +70,20 @@ st.markdown(
     /* Make the title responsive */
     @media screen and (max-width: 768px) {
         h1 {
-            font-size: 1.5rem;
+            font-size: 12px;
         }
         h3 {
             font-size: 1.2rem;
         }
         .stTextInput > div > div > input {
             font-size: 16px;
+        }
+
+        /* Center the submit button and make it take full width */
+        .stButton {
+            width: 100%;
+            display: flex;
+            justify-content: center;
         }
     }
     
