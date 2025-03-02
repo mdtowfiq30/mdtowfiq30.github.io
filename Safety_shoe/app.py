@@ -125,4 +125,8 @@ if submit:
 
             st.markdown('</div>', unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
-            st.markdown('</div>', unsafe_allow_html=Tru
+            st.markdown('</div>', unsafe_allow_html=True)
+        else:
+            st.error("❌ Employee ID not found! Please check and try again.")
+    else:
+        st.warning("⚠️ Please enter an Employee ID before submitting.")
