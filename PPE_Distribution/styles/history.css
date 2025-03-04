@@ -1,0 +1,111 @@
+/* General Page Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa; /* Soft off-white background */
+}
+
+/* Header Styling (Same as OHS) */
+header {
+    background-color: #006f8a; /* Same as OHS header */
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+    font-size: 1.8em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.header-logo {
+    height: 50px;
+}
+
+/* Container */
+.container {
+    padding: 30px;
+    width: 80%;
+    margin: 20px auto;
+    background: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* Table Styling (Same as OHS) */
+h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #f4f4f9;
+}
+
+/* Buttons */
+button {
+    padding: 8px 15px;
+    background-color: #006f8a;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #004f66;
+}
+
+/* Footer */
+footer {
+    margin-top: 30px;
+    font-size: 0.9em;
+    color: #555;
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* Logout Button */
+.logout-btn {
+    background: white;
+    color: #006f8a;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.logout-btn:hover {
+    background: #004f66;
+    color: white;
+}
+
+.logout-btn-container {
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px 20px;
+}
