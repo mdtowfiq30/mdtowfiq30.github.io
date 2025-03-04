@@ -102,3 +102,34 @@ footer p {
     justify-content: flex-end;
     margin: 10px 20px;
 }
+
+
+@media screen and (max-width: 768px) {
+    header {
+        font-size: 1.2em; /* Reduce header text size */
+        padding: 10px;
+    }
+
+    .container {
+        width: 95%; /* Increase width to use more screen space */
+        padding: 15px; /* Reduce padding for more content space */
+    }
+
+    table {
+        width: 100%; /* Make table take full width of the container */
+        font-size: 0.9em; /* Reduce font size for better fit */
+        display: block;
+        overflow-x: auto; /* Allow horizontal scrolling if needed */
+        white-space: nowrap; /* Prevent text wrapping */
+    }
+
+    th, td {
+        padding: 8px; /* Reduce padding to save space */
+        text-align: center; /* Center text */
+    }
+
+    .approve-btn, .reject-btn {
+        padding: 5px 10px; /* Make buttons smaller */
+        font-size: 0.8em;
+    }
+}
