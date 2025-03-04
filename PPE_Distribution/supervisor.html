@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supervisor Request</title>
+    <link rel="stylesheet" href="styles/supervisor.css">
+</head>
+<body>
+    <header>
+        
+            <img src="images/Jmi.png" alt="JMI Logo" class="header-logo">
+            JMI Cylinders & Sankur Auto Tank Ltd.
+            <img src="images/Sankur.png" alt="Sankur Logo" class="header-logo">
+        
+        
+    </header>
+
+    <div class="container">
+        <h2>Submit PPE Request</h2>
+        <form id="requestForm">
+            <label for="employeeName">Employee Name:</label>
+            <input type="text" id="employeeName" required>
+
+            <label for="employeeId">Employee ID:</label>
+            <input type="text" id="employeeId" required>
+
+            <label>Requested PPE:</label>
+            <div class="checkbox-container">
+                <div>
+                    <input type="checkbox" id="safetyShoes"> Safety Shoes
+                    <div id="shoeSizeContainer" style="display:none;">
+                        <label for="shoeSize">Choose Size:</label>
+                        <select id="shoeSize" class="size-select">
+                            <option value="39">39</option>
+                            <option value="40">40</option>
+                            <option value="41">41</option>
+                            <option value="42">42</option>
+                            <option value="43">43</option>
+                            <option value="44">44</option>
+                        </select>
+                    </div>
+                </div>
+                <div><input type="checkbox" id="earPlugs"> Ear Plugs</div>
+                <div><input type="checkbox" id="gogglesWhite"> Goggles (White)</div>
+                <div><input type="checkbox" id="gogglesBlack"> Goggles (Black)</div>
+                <div><input type="checkbox" id="helmet"> Helmet</div>
+                <div><input type="checkbox" id="mask"> Mask</div>
+            </div>
+
+            <label for="requestDate">Date:</label>
+            <input type="text" id="requestDate" readonly required>
+
+            <button type="submit">Submit Request</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 PPE Management System</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("requestDate").value = new Date().toISOString().split('T')[0];
+        });
+
+        document.getElementById("safetyShoes").addEventListener("change", function() {
+            document.getElementById("shoeSizeContainer").style.display = this.checked ? "block" : "none";
+        });
+
+        document.getElementById("requestForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const employeeName = document.getElementById("employeeName").value.trim();
+            const employeeId = document.getElementById("employeeId").value.trim();
+            const dateRequested = document.getElementById("requestDate").value;
+            const ppeSelected = [];
+
+            document.querySelectorAll('.checkbox-container input[type="checkbox"]:checked').forEach((checkbox) => {
+                if (checkbox.id === "safetyShoes") {
+                    const shoeSize = document.getElementById("shoeSize").value;
+                    ppeSelected.push(`Safety Shoes (Size: ${shoeSize})`);
+                } else {
+                    ppeSelected.push(checkbox.nextSibling.textContent.trim());
+                }
+            });
+
+            if (!employeeName || !employeeId || ppeSelected.length === 0) {
+                alert("Please fill out all fields and select at least one PPE item.");
+                return;
+            }
+
+            const requestData = {
+                name: employeeName,
+                employee_id: employeeId,
+                ppe: ppeSelected.join(', '),
+                date_requested: dateRequested
+            };
+
+            fetch('http://localhost:3000/submit-request', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(requestData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Request submitted successfully!');
+                window.location.reload();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("Failed to submit request. Check console for details.");
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPE Request History</title>
+    <link rel="stylesheet" href="Styles/history.css">
+</head>
+<body>
+    <div class="container">
+        <h2>PPE Request History</h2>
+        
+        <label for="requestType">Select Request Type:</label>
+        <select id="requestType" onchange="fetchRequests()">
+            <option value="approved">Approved</option>
+            <option value="rejected">Rejected</option>
+        </select>
+
+        <table id="requestTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Employee ID</th>
+                    <th>PPE</th>
+                    <th>Date Requested</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data will be inserted here dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        async function fetchRequests() {
+            const type = document.getElementById("requestType").value;
+            const url = `http://localhost:3000/get-requests-history?type=${type}`;
+            
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                const tbody = document.querySelector("#requestTable tbody");
+                tbody.innerHTML = ""; // Clear previous data
+
+                if (data.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="5" style="text-align: center;">No records found</td></tr>`;
+                    return;
+                }
+
+                data.forEach(row => {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td>${row.id}</td>
+                        <td>${row.name}</td>
+                        <td>${row.employee_id}</td>
+                        <td>${row.ppe}</td>
+                        <td>${row.date_requested}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                alert("Failed to load request history. Please check the server.");
+            }
+        }
+
+        // Load approved requests by default
+        window.onload = () => fetchRequests();
+    </script>
+</body>
+</html>
