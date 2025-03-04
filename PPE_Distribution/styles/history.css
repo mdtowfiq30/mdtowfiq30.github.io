@@ -153,16 +153,21 @@ footer p {
     }
 
     table {
+        table-layout: fixed;
         width: 100%;
-        font-size: 12px;
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
     }
-
+    
     th, td {
-        padding: 6px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
+    
+    button, .logout-btn {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+}
 
     button, .logout-btn {
         padding: 6px 12px;
