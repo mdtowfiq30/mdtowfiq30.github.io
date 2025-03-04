@@ -109,3 +109,63 @@ footer p {
     justify-content: flex-end;
     margin: 10px 20px;
 }
+
+/* Responsive Design for Smaller Screens */
+@media screen and (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 20px;
+    }
+
+    header {
+        font-size: 1.5em;
+        padding: 10px;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .header-logo {
+        height: 40px;
+    }
+
+    table {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    th, td {
+        padding: 8px;
+    }
+
+    .logout-btn-container {
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    h2 {
+        font-size: 1.5em;
+    }
+
+    .container {
+        padding: 15px;
+        width: 100%;
+    }
+
+    table {
+        width: 100%;
+        font-size: 12px;
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    th, td {
+        padding: 6px;
+    }
+
+    button, .logout-btn {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+}
