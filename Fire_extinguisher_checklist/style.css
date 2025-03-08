@@ -1,0 +1,119 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 900px;
+  margin: 50px auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+}
+
+h3 {
+  margin-top: 20px;
+  color: #333;
+}
+
+/* Centering the Fire Extinguisher Details Heading */
+.fe-details-heading {
+  text-align: center;
+  font-size: 1.5em;
+  color: #333;
+}
+
+/* Fire Extinguisher Details Row */
+.fe-details-row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.fe-details-row p {
+  margin-right: 20px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+/* Form Styles */
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="date"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 5px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Reverted Button Style */
+button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+button:active {
+  background-color: #388e3c;
+}
+
+/* Dropdown Styles */
+.dropdown {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Center buttons at the bottom */
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+  flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+  justify-content: space-evenly;
+}
+
+/* Adjusting for smaller screens */
+@media screen and (max-width: 768px) {
+  .fe-details-row {
+    flex-direction: column;
+  }
+
+  .fe-details-row p {
+    margin-right: 0;
+  }
+}

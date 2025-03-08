@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fire Extinguisher Checklist</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Fire Extinguisher Checklist</h1>
+
+      <!-- Fire Extinguisher Selection -->
+      <div class="form-group">
+        <label for="feNo">Fire Extinguisher No.</label>
+        <select id="feNo" class="dropdown">
+          <option value="">Select Fire Extinguisher</option>
+        </select>
+      </div>
+
+      <!-- Fire Extinguisher Details -->
+      <div id="feDetails">
+        <h3 class="fe-details-heading">Fire Extinguisher Details</h3>
+        <div class="fe-details-row">
+          <p><strong>Area:</strong> <span id="area"></span></p>
+          <p><strong>Location:</strong> <span id="location"></span></p>
+          <p><strong>FE Type:</strong> <span id="feType"></span></p>
+          <p><strong>Capacity:</strong> <span id="capacity"></span></p>
+        </div>
+      </div>
+
+      <!-- Update Form -->
+      <h3>Update Fire Extinguisher Data</h3>
+      <form id="updateForm">
+        <div class="form-group">
+          <label for="pressure">Pressure Condition (Green area)</label>
+          <input type="text" id="pressure" required name="pressureCondition" />
+        </div>
+        <div class="form-group">
+          <label for="seal">Safety Seal / Pin</label>
+          <input type="text" id="seal" required name="safetySeal" />
+        </div>
+        <div class="form-group">
+          <label for="obstruction">Maintained Free of Obstruction</label>
+          <input
+            type="text"
+            id="obstruction"
+            required
+            name="maintainedFreeOfObstruction"
+          />
+        </div>
+        <div class="form-group">
+          <label for="tags">Clear Tags</label>
+          <input type="text" id="tags" required name="clearTags" />
+        </div>
+        <div class="form-group">
+          <label for="damage">No Physical Damage</label>
+          <input type="text" id="damage" required name="physicalDamage" />
+        </div>
+        <div class="form-group">
+          <label for="refillDate">Refill Date</label>
+          <input type="date" id="refillDate" required name="refillDate" />
+        </div>
+        <div class="form-group">
+          <label for="nextRefillDate">Next Refill Date</label>
+          <input
+            type="date"
+            id="nextRefillDate"
+            required
+            name="nextRefillDate"
+          />
+        </div>
+        <div class="form-group">
+          <label for="inspectionDate">Date of Inspection</label>
+          <input
+            type="date"
+            id="inspectionDate"
+            required
+            name="inspectionDate"
+          />
+        </div>
+        <div class="form-group">
+          <label for="remarks">Remarks</label>
+          <textarea id="remarks" name="remarks"></textarea>
+        </div>
+        <!-- Buttons Container -->
+        <div class="button-container">
+          <button type="submit" onsubmit="updateData()">Update Data</button>
+          <button type="button" onclick="clearData()">Clear Data</button>
+          <button onclick="exportCSV()" type="button">Export CSV</button>
+        </div>
+      </form>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
