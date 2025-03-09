@@ -1,0 +1,83 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    text-align: center;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+label, select, button {
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.image-container {
+    position: relative;
+    margin-top: 20px;
+    display: inline-block;
+}
+
+.background-image {
+    width: 900%;
+    max-width: 1000px;
+    
+    height: auto;
+    position: relative;
+}
+
+.marker {
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+.marker img {
+    width: 30px;
+    height: 30px;
+}
+
+.tooltip {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    display: none;
+    z-index: 1000;
+    transform: translate(-50%, -50%);
+}
+
+.heatmap-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+}
