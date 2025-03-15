@@ -96,7 +96,7 @@ st.markdown(
 )
 
 # Title
-st.markdown("<h1>👞 Safety Shoe Status Checker</h1>", unsafe_allow_html=True)
+st.markdown("<h1>👞 Personal Protective Equipment Status Checker</h1>", unsafe_allow_html=True)
 
 # Search Box & Submit Button
 emp_id = st.text_input("🔍 Enter Employee ID:", "")
@@ -117,7 +117,7 @@ if submit:
 
         if not filtered_df.empty:
             # Display results with centered title
-            st.markdown("<h3>Employee Safety Shoe Information</h3>", unsafe_allow_html=True)
+            st.markdown("<h3>Employee PPE Information</h3>", unsafe_allow_html=True)
 
             # Display the table without horizontal scroll and adjust width to container size
             st.dataframe(filtered_df.style.set_properties(**{'text-align': 'center'}), height=400, use_container_width=True)
