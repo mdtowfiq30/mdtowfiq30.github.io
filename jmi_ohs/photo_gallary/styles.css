@@ -144,7 +144,7 @@ h1 {
     }
 
     .button {
-        width: 100%; /* Make the buttons full width on smaller screens */
+        width: 50%; /* Make the buttons full width on smaller screens */
         padding: 12px;
     }
 
