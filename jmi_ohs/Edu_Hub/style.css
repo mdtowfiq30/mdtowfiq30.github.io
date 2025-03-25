@@ -68,17 +68,31 @@ h2 {
     background-color: white;
 }
 
-/* PDF/HTML Viewer */
+/* Default iframe settings */
 #viewer-container iframe {
     width: 100%;
     height: 500px;
     border: none;
 }
 
-/* Responsive Design */
+/* Hide HTML viewer by default */
+#html-viewer {
+    display: none;
+}
+
+/* Responsive Design - Mobile View */
 @media only screen and (max-width: 768px) {
-    #viewer-container iframe {
-        width:100%;
-        height: 600px; /* Adjust for mobile screens */
+    #viewer-container {
+        width: 100%; /* Use full screen width */
+    }
+
+    #pdf-viewer {
+        display: none; /* Hide PDF viewer */
+    }
+
+    #html-viewer {
+        display: block; /* Show HTML viewer */
+        width: 100%;
+        height: 800px; /* Adjust height */
     }
 }
