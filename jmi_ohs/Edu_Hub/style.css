@@ -60,7 +60,7 @@ h2 {
 /* Viewer Container */
 #viewer-container {
     width: 80%;
-    max-width: 800px;
+    max-width: 1200px;
     margin: auto;
     border: 2px solid #ddd;
     border-radius: 5px;
