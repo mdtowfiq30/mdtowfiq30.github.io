@@ -1,4 +1,5 @@
 document.getElementById("pdf-select").addEventListener("change", function() {
-    document.getElementById("pdf-viewer").src = this.value;
-    document.getElementById("mobile-pdf-viewer").data = this.value;
+    let pdfFile = this.value;
+    document.getElementById("pdf-viewer").src = pdfFile;
+    document.getElementById("mobile-pdf-link").href = pdfFile;
 });
