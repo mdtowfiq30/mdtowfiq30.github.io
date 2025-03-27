@@ -1,0 +1,152 @@
+/* General body styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Header styling */
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Container to center the content and give it padding */
+.container {
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+/* Title for the section */
+h2 {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 24px;
+    color: #4CAF50;
+}
+
+/* Dropdown styling */
+.dropdown {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+#machineSelect {
+    padding: 12px;
+    font-size: 16px;
+    width: 200px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+#machineSelect:hover {
+    border-color: #4CAF50;
+}
+
+/* Flexbox container for images */
+.image-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    width: 100%;
+}
+
+.image-box {
+    width: 48%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.image-box img {
+    width: 100%;
+    height: auto;
+    max-height: 250px; /* Keep image height at max 250px */
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+/* Table Styling (Both tables: Machine Work Description and Risk Assessment & Control Measures) */
+table {
+    width: 100%;
+    margin-top: 30px;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px 15px; /* Adjust padding to reduce space */
+    text-align: left;
+    font-size: 13px; /* Reduced font size */
+    line-height: 1.5;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+    font-size: 14px; /* Reduced font size for the header */
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+td {
+    color: #555;
+}
+
+/* Add a hover effect on the table rows */
+tr:hover {
+    background-color: #e7f3e7;
+}
+
+/* Container for the whole content */
+.container h1, .container h2 {
+    margin-bottom: 20px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .image-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .image-box {
+        width: 80%;
+        margin-bottom: 20px;
+    }
+
+    #machineSelect {
+        width: 100%;
+    }
+
+    th, td {
+        font-size: 12px;
+        padding: 8px;
+    }
+}
