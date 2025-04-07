@@ -97,14 +97,14 @@ table {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow: hidden;
-  table-layout: fixed; /* Ensure all columns are of equal width */
+  table-layout: auto; /* Allow columns to adjust based on content */
 }
 
 th, td {
   border: 1px solid #ddd;
-  padding: 12px 15px;
+  padding: 15px 20px; /* Increased padding for better spacing */
   text-align: left;
-  font-size: 13px;
+  font-size: 14px; /* Slightly larger font for readability */
   line-height: 1.5;
 }
 
@@ -112,7 +112,7 @@ th {
   background-color: #4CAF50;
   color: white;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 16px; /* Larger font for table headers */
 }
 
 tr:nth-child(even) {
@@ -152,13 +152,14 @@ tr:hover {
 
   th, td {
     font-size: 12px;
-    padding: 8px;
+    padding: 8px 12px; /* Reduced padding for better fit */
   }
 
   /* Adjust table width for smaller screens */
   table {
     width: 90%; /* Ensure table fits in smaller viewports */
     margin: 20px auto; /* Center the tables */
+    table-layout: auto; /* Allow columns to resize based on content */
   }
 
   /* Ensure both tables have the same width and are centered */
@@ -166,6 +167,14 @@ tr:hover {
   #controlMeasuresTable {
     width: 90%; /* Both tables will take the same width */
     margin: 20px auto; /* Center the tables */
-    table-layout: fixed; /* Equal width columns */
+    overflow-x: auto; /* Enable horizontal scrolling if needed */
+  }
+
+  /* Allow horizontal scrolling on tables for small screens */
+  #hazardTable,
+  #controlMeasuresTable {
+    -webkit-overflow-scrolling: touch;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    display: block; /* Make table scrollable horizontally */
   }
 }
