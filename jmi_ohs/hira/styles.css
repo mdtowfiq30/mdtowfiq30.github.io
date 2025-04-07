@@ -97,6 +97,7 @@ table {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow: hidden;
+  table-layout: fixed; /* Ensure all columns are of equal width */
 }
 
 th, td {
@@ -157,12 +158,14 @@ tr:hover {
   /* Adjust table width for smaller screens */
   table {
     width: 90%; /* Ensure table fits in smaller viewports */
+    margin: 20px auto; /* Center the tables */
   }
 
-  /* Ensure both tables have the same width */
+  /* Ensure both tables have the same width and are centered */
   #hazardTable,
   #controlMeasuresTable {
     width: 90%; /* Both tables will take the same width */
     margin: 20px auto; /* Center the tables */
+    table-layout: fixed; /* Equal width columns */
   }
 }
