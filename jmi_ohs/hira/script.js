@@ -49,7 +49,7 @@ function updateData() {
   const filtered = currentData.filter(item => item.Machine === selectedMachine);
 
   if (filtered.length > 0) {
-    document.getElementById('machineImage').innerHTML = `<img src="${selectedMachine}.jpg" alt="${selectedMachine}" width="300">`;
+    document.getElementById('machineImage').innerHTML = `<img src="images/quality/${selectedMachine}.jpg" alt="${selectedMachine}" width="300">`;
     document.getElementById('riskMatrixImage').innerHTML = `<img src="images/risk_matrix.jpg" alt="Risk Matrix" width="300">`;
 
     populateHiraTable(filtered);
