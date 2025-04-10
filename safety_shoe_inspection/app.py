@@ -1,58 +1,69 @@
 import streamlit as st
 import pandas as pd
-import gdown
-from PIL import Image
 import requests
 from io import BytesIO
-
-st.set_page_config(page_title="Safety Shoe Inspection", page_icon="🛠️", layout="wide")
-
-# Download the Excel file from Google Sheets
-file_url = "https://docs.google.com/spreadsheets/d/1sgvvLhJHGjYiMRLsXmF-C6Hkwv7eSfO9rdxURlOFpMk/export?format=xlsx"
-output_file = "safety_data.xlsx"
-gdown.download(file_url, output_file, quiet=True)
-
-# Read Excel file
-df = pd.read_excel(output_file, sheet_name="Raw")
-
-# Clean column names just in case there are spaces or hidden characters
-df.columns = df.columns.str.strip()
+from PIL import Image
 
 # Title
-st.title("🛠️ Safety Shoe Inspection Viewer")
-st.markdown("Search by Employee ID to see their safety shoe inspection history with images, sorted by date.")
+st.title("🔍 Safety Shoe Image Viewer")
 
-# Input: Search by Employee ID
-emp_id = st.text_input("Enter Employee ID")
+# Google Sheet link (CSV export format)
+sheet_url = "https://docs.google.com/spreadsheets/d/1sgvvLhJHGjYiMRLsXmF-C6Hkwv7eSfO9rdxURlOFpMk/gviz/tq?tqx=out:csv&sheet=Raw"
+
+# Load data
+@st.cache_data
+def load_data():
+    return pd.read_csv(sheet_url)
+
+df = load_data()
+
+# Convert 'Date' to datetime
+df['Date'] = pd.to_datetime(df['Date'], errors='coerce')
+
+# Search box
+emp_id = st.text_input("Enter Employee ID to search:")
 
 if emp_id:
-    filtered = df[df["Emp ID"].astype(str) == emp_id.strip()]
-    
-    if not filtered.empty:
-        st.subheader("🧾 Employee Info")
-        st.write(f"**Employee ID:** {filtered['Emp ID'].iloc[0]}")
-        st.write(f"**Department:** {filtered['Department'].iloc[0]}")
-        st.write(f"**Current Status:** {filtered['Current Status'].iloc[0]}")
+    filtered = df[df["Emp ID"].astype(str) == emp_id].sort_values(by="Date")
 
-        st.subheader("🖼️ Uploaded Images (Sorted by Date)")
-        filtered = filtered.sort_values(by="Date")
-        
-        # Display images in horizontal layout
+    if not filtered.empty:
+        # Show basic info
+        st.write(f"**Employee ID:** {emp_id}")
+        st.write(f"**Department:** {filtered['Department'].iloc[0]}")
+
+        # Prepare image gallery
+        st.subheader("📅 Safety Shoe Images (Sorted by Date)")
+
         images = []
         for _, row in filtered.iterrows():
-            image_id = row["Upload image"].split("id=")[-1]
+            img_link = str(row["Upload image"])
+            if pd.isna(img_link) or "drive.google.com" not in img_link:
+                continue  # Skip empty or invalid links
+
+            # Extract Google Drive file ID
+            if "id=" in img_link:
+                image_id = img_link.split("id=")[-1].split("&")[0]
+            elif "/d/" in img_link:
+                image_id = img_link.split("/d/")[-1].split("/")[0]
+            else:
+                st.warning(f"⚠️ Unrecognized image URL format: {img_link}")
+                continue
+
             image_url = f"https://drive.google.com/uc?id={image_id}"
+
             try:
                 response = requests.get(image_url)
-                img = Image.open(BytesIO(response.content))
+                img = Image.open(BytesIO(response.content)).convert("RGB")
                 images.append((img, row["Date"].strftime("%Y-%m-%d")))
             except Exception as e:
-                st.error(f"Error loading image for date {row['Date']}: {e}")
+                st.error(f"❌ Error loading image for date {row['Date']}: {e}")
 
-        # Show in horizontal columns
-        cols = st.columns(len(images) if images else 1)
-        for col, (img, date) in zip(cols, images):
-            col.image(img, caption=date, use_column_width=True)
-
+        if images:
+            cols = st.columns(len(images))
+            for idx, (img, date) in enumerate(images):
+                with cols[idx]:
+                    st.image(img, caption=date, use_column_width=True)
+        else:
+            st.warning("No valid images found for this employee.")
     else:
-        st.warning("No record found for this Employee ID.")
+        st.warning("No data found for this Employee ID.")
