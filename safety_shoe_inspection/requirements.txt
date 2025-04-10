@@ -1,5 +1,5 @@
-streamlit==1.18.1
-pandas==1.5.3
-gdown==4.6.0
-Pillow==9.0.1
-requests==2.28.1
+streamlit
+pandas
+gdown
+Pillow
+requests
