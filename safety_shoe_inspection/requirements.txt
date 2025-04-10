@@ -1,6 +1,6 @@
 streamlit
 pandas
 gdown
+openpyxl
 Pillow
 requests
-openpyxl
