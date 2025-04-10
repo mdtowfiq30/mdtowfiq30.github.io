@@ -10,6 +10,77 @@ st.title("👷 Safety Shoe Inspection Viewer")
 # Google Sheet CSV export URL
 sheet_url = "https://docs.google.com/spreadsheets/d/1sgvvLhJHGjYiMRLsXmF-C6Hkwv7eSfO9rdxURlOFpMk/gviz/tq?tqx=out:csv&sheet=Raw"
 
+# Custom Styling
+st.markdown("""
+    <style>
+        /* Title styling */
+        h1 {
+            color: #2980b9;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            font-size: 3em;
+            font-weight: bold;
+        }
+
+        /* Input styling */
+        .stTextInput input {
+            font-size: 18px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid #3498db;
+        }
+
+        /* Button styling */
+        .stButton button {
+            font-size: 18px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .stButton button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Image container styling */
+        .image-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            justify-items: center;
+            margin-top: 20px;
+        }
+
+        /* Image hover effect */
+        .image-container img {
+            border-radius: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Warning and Error message styling */
+        .stWarning, .stError {
+            font-size: 18px;
+            color: #e74c3c;
+        }
+
+        /* Description Styling */
+        .description {
+            font-size: 16px;
+            color: #2c3e50;
+            text-align: center;
+        }
+
+    </style>
+""", unsafe_allow_html=True)
+
 @st.cache_data(ttl=600)
 def load_data(url):
     df = pd.read_csv(url)
@@ -38,6 +109,8 @@ def display_images_by_id(df, emp_id):
 
     st.write(f"**Department:** {filtered['Department'].iloc[0]}")
     st.write(f"**Total Entries:** {len(filtered)}")
+
+    st.markdown("<h3 class='description'>Images sorted by Date</h3>", unsafe_allow_html=True)
 
     image_columns = st.columns(min(len(filtered), 5))  # up to 5 images in a row
 
