@@ -51,7 +51,7 @@ def display_images_by_id(df, emp_id):
                 response = requests.get(img_url)
                 img = Image.open(BytesIO(response.content))
                 with image_columns[i % len(image_columns)]:
-                    st.image(img, caption=f"{date}", use_column_width=True)
+                    st.image(img, caption=f"{date}", use_container_width=True)
                     image_found = True
             except Exception as e:
                 st.error(f"❌ Error loading image for date {date}: {e}")
