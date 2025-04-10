@@ -6,7 +6,7 @@ import requests
 from io import BytesIO
 
 # Set Page Config
-st.set_page_config(page_title="Safety Shoe Status", page_icon="👞", layout="centered")
+st.set_page_config(page_title="Safety Shoe Image Viewer", page_icon="👞", layout="centered")
 
 # Load Data from Google Drive
 url = "https://docs.google.com/spreadsheets/d/1sgvvLhJHGjYiMRLsXmF-C6Hkwv7eSfO9rdxURlOFpMk/export?format=xlsx"
@@ -15,9 +15,6 @@ gdown.download(url, output, quiet=False)
 
 # Read Excel file
 df = pd.read_excel(output, sheet_name="Raw")
-
-# Drop "Status" & "Comment" columns
-df = df.drop(columns=["Status", "Comment"])
 
 # Apply Custom CSS Styling for responsiveness
 st.markdown(
@@ -36,41 +33,6 @@ st.markdown(
         text-align: center;
         color: #2c3e50;
         font-size: 1.5rem;
-    }
-
-    /* Input Box Styling */
-    .stTextInput > div > div > input {
-        font-size: 18px;
-        padding: 10px;
-    }
-
-    /* Submit Button */
-    .stButton > button {
-        font-size: 18px;
-        padding: 10px 20px;
-        background-color: #3498db;
-        color: white;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-        transition: 0.3s;
-    }
-    .stButton > button:hover {
-        background-color: #2980b9;
-    }
-
-    /* Data Display Styling */
-    .data-container {
-        background: #f8f9fa;
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        margin-top: 20px;
-    }
-
-    /* Ensure table uses full width */
-    .stDataFrame {
-        width: 100% !important;
     }
 
     /* Styling for image gallery */
@@ -100,20 +62,17 @@ filtered_df = df[(df['Date'] >= pd.to_datetime(start_date)) & (df['Date'] <= pd.
 if not filtered_df.empty:
     st.write(f"### Showing Images from {start_date} to {end_date}")
 
-    # Display images for the filtered data
+    # Create a grid layout for displaying images
     st.markdown("<h3>Safety Shoe Images</h3>", unsafe_allow_html=True)
 
-    # Create a grid layout for displaying images
-    col1, col2, col3 = st.columns(3)  # You can adjust the number of columns
-    with col1:
-        for index, row in filtered_df.iterrows():
-            img_url = row['Upload image']
-            try:
-                response = requests.get(img_url)
-                img = Image.open(BytesIO(response.content))
-                st.image(img, caption=f"Employee ID: {row['ID']}", use_column_width=True)
-            except Exception as e:
-                st.error(f"❌ Error loading image: {e}")
+    # Loop through the filtered data to show images
+    for index, row in filtered_df.iterrows():
+        img_url = row['Upload image']  # Assuming 'Upload image' has the image URL
+        try:
+            response = requests.get(img_url)
+            img = Image.open(BytesIO(response.content))
+            st.image(img, caption=f"Employee ID: {row['EMP ID']} | Department: {row['Department']} | Status: {row['Current Status']}", use_column_width=True)
+        except Exception as e:
+            st.error(f"❌ Error loading image: {e}")
 else:
     st.warning("⚠️ No data found for the selected date range.")
-
