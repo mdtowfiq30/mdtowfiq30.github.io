@@ -6,7 +6,7 @@ import requests
 from io import BytesIO
 
 # Set Page Config
-st.set_page_config(page_title="Safety Shoe Image Viewer", page_icon="👞", layout="centered")
+st.set_page_config(page_title="Employee Safety Shoe Status", page_icon="👞", layout="centered")
 
 # Load Data from Google Drive
 url = "https://docs.google.com/spreadsheets/d/1sgvvLhJHGjYiMRLsXmF-C6Hkwv7eSfO9rdxURlOFpMk/export?format=xlsx"
@@ -16,63 +16,49 @@ gdown.download(url, output, quiet=False)
 # Read Excel file
 df = pd.read_excel(output, sheet_name="Raw")
 
-# Apply Custom CSS Styling for responsiveness
-st.markdown(
-    """
-    <style>
-    /* Title Styling */
-    h1 {
-        text-align: center;
-        color: #2c3e50;
-        font-size: 2rem;
-        font-weight: bold;
-    }
-    
-    /* Subtitle Styling */
-    h3 {
-        text-align: center;
-        color: #2c3e50;
-        font-size: 1.5rem;
-    }
+# Convert the 'Date' column to datetime format for easier sorting
+df['Date'] = pd.to_datetime(df['Date'])
 
-    /* Styling for image gallery */
-    .image-gallery {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 20px;
-        justify-items: center;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
+# Function to get the correct image link from Google Drive
+def get_google_drive_image_link(url):
+    # This converts the Google Drive link to a direct image URL
+    file_id = url.split('/')[-2]
+    return f"https://drive.google.com/uc?export=view&id={file_id}"
 
 # Title
-st.markdown("<h1>👞 Safety Shoe Image Viewer by Date</h1>", unsafe_allow_html=True)
+st.markdown("<h1>👞 Employee Safety Shoe Images Viewer</h1>", unsafe_allow_html=True)
 
-# Date Selection
-st.write("### Filter by Date:")
-start_date = st.date_input("Start Date", df['Date'].min())
-end_date = st.date_input("End Date", df['Date'].max())
+# Employee ID search input
+emp_id = st.text_input("Enter Employee ID to search:")
 
-# Filter Data by Date Range
-filtered_df = df[(df['Date'] >= pd.to_datetime(start_date)) & (df['Date'] <= pd.to_datetime(end_date))]
+if emp_id:
+    # Filter the DataFrame by Employee ID
+    filtered_df = df[df['Emp ID'].astype(str) == emp_id]
 
-# If data is available after filtering
-if not filtered_df.empty:
-    st.write(f"### Showing Images from {start_date} to {end_date}")
+    if not filtered_df.empty:
+        st.write(f"### Showing Data for Employee ID: {emp_id}")
 
-    # Create a grid layout for displaying images
-    st.markdown("<h3>Safety Shoe Images</h3>", unsafe_allow_html=True)
+        # Display the employee's info (Current Status, Department, etc.)
+        st.write(f"**Department:** {filtered_df['Department'].iloc[0]}")
+        st.write(f"**Current Status:** {filtered_df['Current Status'].iloc[0]}")
+        
+        # Sort by Date (from previous to current)
+        filtered_df = filtered_df.sort_values(by='Date', ascending=True)
 
-    # Loop through the filtered data to show images
-    for index, row in filtered_df.iterrows():
-        img_url = row['Upload image']  # Assuming 'Upload image' has the image URL
-        try:
-            response = requests.get(img_url)
-            img = Image.open(BytesIO(response.content))
-            st.image(img, caption=f"Employee ID: {row['EMP ID']} | Department: {row['Department']} | Status: {row['Current Status']}", use_column_width=True)
-        except Exception as e:
-            st.error(f"❌ Error loading image: {e}")
-else:
-    st.warning("⚠️ No data found for the selected date range.")
+        # Display images horizontally
+        st.markdown("<h3>Images</h3>", unsafe_allow_html=True)
+        
+        # Create a horizontal layout for displaying images
+        cols = st.columns(len(filtered_df))
+
+        # Loop through each image and display it in the columns
+        for i, (index, row) in enumerate(filtered_df.iterrows()):
+            img_url = get_google_drive_image_link(row['Upload image'])  # Get direct image URL
+            try:
+                response = requests.get(img_url)
+                img = Image.open(BytesIO(response.content))
+                cols[i].image(img, caption=f"Date: {row['Date'].date()}", use_column_width=True)
+            except Exception as e:
+                cols[i].error(f"❌ Error loading image: {e}")
+    else:
+        st.warning("No data found for the given Employee ID.")
