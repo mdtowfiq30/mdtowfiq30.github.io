@@ -39,7 +39,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-st.title("🚨 Safety Violation ")
+st.markdown("<h3 style='text-align: center; color: red;'>🚨 Safety Violation</h3>", unsafe_allow_html=True)
 
 # Load data from Google Sheets
 sheet_url = "https://docs.google.com/spreadsheets/d/14fR8BCvYm6HzOjQ8bzZ7sMNa8SPESkjO9NzVABgwZxw/gviz/tq?tqx=out:csv&sheet=Raw"
