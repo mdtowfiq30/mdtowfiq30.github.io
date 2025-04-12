@@ -55,8 +55,9 @@ emp_id = st.text_input("Enter Employee ID", key="search_box", label_visibility="
 st.markdown('</div>', unsafe_allow_html=True)
 
 # ✅ Load Google Sheet data
-sheet_url = "https://docs.google.com/spreadsheets/d/14fR8BCvYm6HzOjQ8bzZ7sMNa8SPESkjO9NzVABgwZxw/gviz/tq?tqx=out:csv&sheet=Raw"
+heet_url = "https://docs.google.com/spreadsheets/d/14fR8BCvYm6HzOjQ8bzZ7sMNa8SPESkjO9NzVABgwZxw/gviz/tq?tqx=out:csv&sheet=Raw"
 df = pd.read_csv(sheet_url)
+df.columns = df.columns.str.strip()  # Strip whitespace from column names
 
 # ✅ Convert date column to datetime
 df['Date'] = pd.to_datetime(df['Date'], errors='coerce')
