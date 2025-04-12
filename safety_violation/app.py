@@ -4,6 +4,31 @@ import requests
 from PIL import Image
 from io import BytesIO
 
+# Custom styling
+st.markdown("""
+    <style>
+    .card {
+        background-color: #f9f9f9;
+        padding: 1rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+        margin: 0.5rem;
+        text-align: center;
+    }
+    .card-title {
+        font-weight: 600;
+        font-size: 1.1rem;
+        color: #333333;
+        margin-bottom: 0.5rem;
+    }
+    .card-caption {
+        font-size: 0.9rem;
+        color: #666666;
+        margin-top: 0.5rem;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 st.set_page_config(page_title="Safety Violation Viewer", layout="wide")
 st.title("🚨 Safety Violation Viewer")
 
@@ -15,7 +40,7 @@ df = pd.read_csv(sheet_url)
 df['Date'] = pd.to_datetime(df['Date'], errors='coerce')
 df = df.dropna(subset=['Emp ID', 'Date', 'Upload Image'])
 
-# Sidebar search
+# Search box
 emp_id = st.text_input("🔍 Enter Employee ID to view safety violations:")
 
 if emp_id:
@@ -26,44 +51,58 @@ if emp_id:
         dept = filtered_df['Department'].iloc[0]
 
         st.markdown(f"### 👤 Name: `{name}`  \n🏢 Department: `{dept}`")
-        st.markdown("### 🖼 Violation History")
+        st.markdown("### 📸 Violation History")
 
         # Sort by date
         sorted_df = filtered_df.sort_values('Date')
 
-        # Display in horizontal columns
-        cols = st.columns(len(sorted_df))
+        # Display in horizontal scroll container
+        scroll_container = st.container()
+        with scroll_container:
+            cols = st.columns(len(sorted_df))
 
-        for col, (_, row) in zip(cols, sorted_df.iterrows()):
-            img_url = row['Upload Image']
-            date_str = row['Date'].strftime('%d/%m/%Y')
-            caption = row['Description of Violation']
+            for col, (_, row) in zip(cols, sorted_df.iterrows()):
+                img_url = row['Upload Image']
+                date_str = row['Date'].strftime('%d/%m/%Y')
+                caption = row['Description of Violation']
 
-            # Convert to direct link
-            if "drive.google.com" in img_url:
-                if "id=" in img_url:
-                    file_id = img_url.split("id=")[-1]
-                elif "/file/d/" in img_url:
-                    file_id = img_url.split("/file/d/")[1].split("/")[0]
-                else:
-                    file_id = None
+                # Convert to direct link
+                if "drive.google.com" in img_url:
+                    if "id=" in img_url:
+                        file_id = img_url.split("id=")[-1]
+                    elif "/file/d/" in img_url:
+                        file_id = img_url.split("/file/d/")[1].split("/")[0]
+                    else:
+                        file_id = None
 
-                if file_id:
-                    direct_url = f"https://drive.google.com/uc?export=download&id={file_id}"
+                    if file_id:
+                        direct_url = f"https://drive.google.com/uc?export=download&id={file_id}"
+                    else:
+                        direct_url = img_url
                 else:
                     direct_url = img_url
-            else:
-                direct_url = img_url
 
-            try:
-                response = requests.get(direct_url)
-                img = Image.open(BytesIO(response.content))
+                try:
+                    response = requests.get(direct_url)
+                    img = Image.open(BytesIO(response.content))
 
-                with col:
-                    st.markdown(f"**📅 {date_str}**", unsafe_allow_html=True)
-                    st.image(img, use_container_width=True)
-                    st.caption(f"📝 {caption}")
-            except Exception as e:
-                col.error(f"❌ Error loading image: {e}")
+                    with col:
+                        st.markdown(f"""
+                            <div class="card">
+                                <div class="card-title">📅 {date_str}</div>
+                                <img src="data:image/jpeg;base64,{img_to_base64(img)}" style="width:100%; border-radius:8px;" />
+                                <div class="card-caption">📝 {caption}</div>
+                            </div>
+                        """, unsafe_allow_html=True)
+                except Exception as e:
+                    col.error(f"❌ Error loading image: {e}")
     else:
         st.warning("No data found for this Employee ID.")
+
+
+# Helper function to convert PIL Image to base64
+import base64
+def img_to_base64(image):
+    buffered = BytesIO()
+    image.save(buffered, format="JPEG")
+    return base64.b64encode(buffered.getvalue()).decode()
