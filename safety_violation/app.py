@@ -6,7 +6,7 @@ from io import BytesIO
 import base64
 
 # ✅ This must be the first Streamlit command
-st.set_page_config(page_title="Safety Violation Viewer", layout="wide")
+st.set_page_config(page_title="Safety Violation ", layout="wide")
 
 # Helper function to convert PIL Image to base64
 def img_to_base64(image):
