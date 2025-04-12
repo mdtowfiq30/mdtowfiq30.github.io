@@ -3,8 +3,18 @@ import pandas as pd
 import requests
 from PIL import Image
 from io import BytesIO
+import base64
 
-# Custom styling
+# ✅ This must be the first Streamlit command
+st.set_page_config(page_title="Safety Violation Viewer", layout="wide")
+
+# Helper function to convert PIL Image to base64
+def img_to_base64(image):
+    buffered = BytesIO()
+    image.save(buffered, format="JPEG")
+    return base64.b64encode(buffered.getvalue()).decode()
+
+# Custom CSS Styling
 st.markdown("""
     <style>
     .card {
@@ -29,14 +39,13 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-st.set_page_config(page_title="Safety Violation Viewer", layout="wide")
 st.title("🚨 Safety Violation Viewer")
 
-# Load data
+# Load data from Google Sheets
 sheet_url = "https://docs.google.com/spreadsheets/d/14fR8BCvYm6HzOjQ8bzZ7sMNa8SPESkjO9NzVABgwZxw/gviz/tq?tqx=out:csv&sheet=Raw"
 df = pd.read_csv(sheet_url)
 
-# Clean & convert date
+# Convert and clean date
 df['Date'] = pd.to_datetime(df['Date'], errors='coerce')
 df = df.dropna(subset=['Emp ID', 'Date', 'Upload Image'])
 
@@ -53,20 +62,20 @@ if emp_id:
         st.markdown(f"### 👤 Name: `{name}`  \n🏢 Department: `{dept}`")
         st.markdown("### 📸 Violation History")
 
-        # Sort by date
+        # Sort by date (earliest first)
         sorted_df = filtered_df.sort_values('Date')
 
-        # Display in horizontal scroll container
+        # Display in horizontal layout
         scroll_container = st.container()
         with scroll_container:
             cols = st.columns(len(sorted_df))
 
             for col, (_, row) in zip(cols, sorted_df.iterrows()):
                 img_url = row['Upload Image']
-                date_str = row['Date'].strftime('%d/%m/%Y')
+                date_str = row['Date'].strftime('%d/%m/%Y')  # Day/Month/Year
                 caption = row['Description of Violation']
 
-                # Convert to direct link
+                # Convert to direct Google Drive link if needed
                 if "drive.google.com" in img_url:
                     if "id=" in img_url:
                         file_id = img_url.split("id=")[-1]
@@ -98,11 +107,3 @@ if emp_id:
                     col.error(f"❌ Error loading image: {e}")
     else:
         st.warning("No data found for this Employee ID.")
-
-
-# Helper function to convert PIL Image to base64
-import base64
-def img_to_base64(image):
-    buffered = BytesIO()
-    image.save(buffered, format="JPEG")
-    return base64.b64encode(buffered.getvalue()).decode()
