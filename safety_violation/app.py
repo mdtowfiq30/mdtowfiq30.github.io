@@ -36,9 +36,16 @@ st.markdown("""
         color: #666666;
         margin-top: 0.5rem;
     }
+    .card-fine {
+        font-size: 1rem;
+        color: #ff6347;
+        font-weight: 600;
+        margin-top: 0.5rem;
+    }
     </style>
 """, unsafe_allow_html=True)
 
+# Title
 st.markdown("<h3 style='text-align: center; color: red;'>🚨 Safety Violation</h3>", unsafe_allow_html=True)
 
 # Load data from Google Sheets
@@ -74,6 +81,7 @@ if emp_id:
                 img_url = row['Upload Image']
                 date_str = row['Date'].strftime('%d/%m/%Y')  # Day/Month/Year
                 caption = row['Description of Violation']
+                fine = row['Fine']
 
                 # Convert to direct Google Drive link if needed
                 if "drive.google.com" in img_url:
@@ -101,6 +109,7 @@ if emp_id:
                                 <div class="card-title">📅 {date_str}</div>
                                 <img src="data:image/jpeg;base64,{img_to_base64(img)}" style="width:100%; border-radius:8px;" />
                                 <div class="card-caption">📝 {caption}</div>
+                                <div class="card-fine">💰 Fine: {fine}</div>
                             </div>
                         """, unsafe_allow_html=True)
                 except Exception as e:
