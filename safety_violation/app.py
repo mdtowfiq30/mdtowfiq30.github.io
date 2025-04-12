@@ -67,6 +67,16 @@ if emp_id:
         dept = filtered_df['Department'].iloc[0]
 
         st.markdown(f"### 👤 Name: `{name}`  \n🏢 Department: `{dept}`")
+
+        # Ensure 'Fine' is numeric
+        filtered_df['Fine'] = pd.to_numeric(filtered_df['Fine'], errors='coerce')
+
+        # Calculate total fine
+        total_fine = filtered_df['Fine'].sum()
+
+        # Show total fine
+        st.markdown(f"### 💰 Total Fine: `{total_fine:.2f}` BDT")
+
         st.markdown("### 📸 Violation History")
 
         # Sort by date (earliest first)
