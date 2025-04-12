@@ -3,74 +3,107 @@ import pandas as pd
 import requests
 from PIL import Image
 from io import BytesIO
-from datetime import datetime
+import base64
 
-# Must be the first Streamlit command
+# ✅ This must be the first Streamlit command
 st.set_page_config(page_title="Safety Violation Viewer", layout="wide")
 
-# Google Sheet link (published CSV format)
+# Helper function to convert PIL Image to base64
+def img_to_base64(image):
+    buffered = BytesIO()
+    image.save(buffered, format="JPEG")
+    return base64.b64encode(buffered.getvalue()).decode()
+
+# Custom CSS Styling
+st.markdown("""
+    <style>
+    .card {
+        background-color: #f9f9f9;
+        padding: 1rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+        margin: 0.5rem;
+        text-align: center;
+    }
+    .card-title {
+        font-weight: 600;
+        font-size: 1.1rem;
+        color: #333333;
+        margin-bottom: 0.5rem;
+    }
+    .card-caption {
+        font-size: 0.9rem;
+        color: #666666;
+        margin-top: 0.5rem;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+st.title("🚨 Safety Violation Viewer")
+
+# Load data from Google Sheets
 sheet_url = "https://docs.google.com/spreadsheets/d/14fR8BCvYm6HzOjQ8bzZ7sMNa8SPESkjO9NzVABgwZxw/gviz/tq?tqx=out:csv&sheet=Raw"
+df = pd.read_csv(sheet_url)
 
-# Load and clean the data
-@st.cache_data
-def load_data(url):
-    df = pd.read_csv(url)
-    df.columns = df.columns.str.strip()
-    df['Date'] = pd.to_datetime(df['Date'], errors='coerce')
-    df = df.dropna(subset=['Emp ID', 'Date'])
-    return df
-
-df = load_data(sheet_url)
-
-# App Title
-st.markdown("<h1 style='text-align: center; color: #2E86C1;'>Safety Violation Viewer</h1>", unsafe_allow_html=True)
-st.markdown("---")
+# Convert and clean date
+df['Date'] = pd.to_datetime(df['Date'], errors='coerce')
+df = df.dropna(subset=['Emp ID', 'Date', 'Upload Image'])
 
 # Search box
-st.markdown("<div style='display: flex; justify-content: center;'>", unsafe_allow_html=True)
-emp_id_input = st.text_input("Enter Employee ID", max_chars=20, key="search_input", label_visibility="collapsed")
-st.markdown("</div>", unsafe_allow_html=True)
+emp_id = st.text_input("🔍 Enter Employee ID to view safety violations:")
 
-# Filter and display results
-if emp_id_input:
-    filtered_df = df[df["Emp ID"].astype(str).str.strip() == emp_id_input.strip()]
+if emp_id:
+    filtered_df = df[df['Emp ID'].astype(str) == emp_id]
 
     if not filtered_df.empty:
-        name = filtered_df["Name"].iloc[0]
-        dept = filtered_df["Department"].iloc[0]
+        name = filtered_df['Name'].iloc[0]
+        dept = filtered_df['Department'].iloc[0]
 
-        st.markdown(f"<h4 style='text-align: center;'>👷 Name: {name} | 🏢 Department: {dept}</h4>", unsafe_allow_html=True)
-        st.markdown("---")
+        st.markdown(f"### 👤 Name: `{name}`  \n🏢 Department: `{dept}`")
+        st.markdown("### 📸 Violation History")
 
-        # Sort by date
-        filtered_df = filtered_df.sort_values("Date")
+        # Sort by date (earliest first)
+        sorted_df = filtered_df.sort_values('Date')
 
-        # Display images in horizontal layout
-        image_cols = st.columns(len(filtered_df))
+        # Display in horizontal layout
+        scroll_container = st.container()
+        with scroll_container:
+            cols = st.columns(len(sorted_df))
 
-        for col, (_, row) in zip(image_cols, filtered_df.iterrows()):
-            try:
-                image_url = row["Upload Image"]
-                # Convert shared Google Drive URL to direct link
-                if "drive.google.com" in image_url:
-                    if "id=" in image_url:
-                        file_id = image_url.split("id=")[-1]
-                    elif "/d/" in image_url:
-                        file_id = image_url.split("/d/")[1].split("/")[0]
+            for col, (_, row) in zip(cols, sorted_df.iterrows()):
+                img_url = row['Upload Image']
+                date_str = row['Date'].strftime('%d/%m/%Y')  # Day/Month/Year
+                caption = row['Description of Violation']
+
+                # Convert to direct Google Drive link if needed
+                if "drive.google.com" in img_url:
+                    if "id=" in img_url:
+                        file_id = img_url.split("id=")[-1]
+                    elif "/file/d/" in img_url:
+                        file_id = img_url.split("/file/d/")[1].split("/")[0]
                     else:
                         file_id = None
+
                     if file_id:
                         direct_url = f"https://drive.google.com/uc?export=download&id={file_id}"
-                        response = requests.get(direct_url)
-                        image = Image.open(BytesIO(response.content))
+                    else:
+                        direct_url = img_url
+                else:
+                    direct_url = img_url
 
-                        formatted_date = row['Date'].strftime('%d/%m/%Y')
-                        description = row["Description of Violation"]
+                try:
+                    response = requests.get(direct_url)
+                    img = Image.open(BytesIO(response.content))
 
-                        with col:
-                            st.image(image, caption=description, use_container_width=True)
-                            st.markdown(f"<div style='text-align: center; font-weight: bold;'>{formatted_date}</div>", unsafe_allow_html=True)
-            except Exception as e:
-                st.warning(f"⚠️ Could not load image for {row['Date'].strftime('%d/%m/%Y')}")
+                    with col:
+                        st.markdown(f"""
+                            <div class="card">
+                                <div class="card-title">📅 {date_str}</div>
+                                <img src="data:image/jpeg;base64,{img_to_base64(img)}" style="width:100%; border-radius:8px;" />
+                                <div class="card-caption">📝 {caption}</div>
+                            </div>
+                        """, unsafe_allow_html=True)
+                except Exception as e:
+                    col.error(f"❌ Error loading image: {e}")
     else:
-        st.error("No data found for this Employee ID.")
+        st.warning("No data found for this Employee ID.")
