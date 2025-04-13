@@ -107,7 +107,7 @@ if emp_id:
                 img = Image.open(BytesIO(response.content))
 
                 st.markdown(f"""
-                    <div class="card" style="width: 250px; margin: 0 auto;">
+                    <div class="card" style="width: 300px; margin: 0 auto;">
                         <div class="card-title">📅 {date_str}</div>
                         <img src="data:image/jpeg;base64,{img_to_base64(img)}" style="width:100%; border-radius:8px;" />
                         <div class="card-caption">📝 {caption}</div>
