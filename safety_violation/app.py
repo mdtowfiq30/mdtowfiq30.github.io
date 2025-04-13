@@ -6,7 +6,7 @@ from io import BytesIO
 import base64
 
 # ✅ This must be the first Streamlit command
-st.set_page_config(page_title="Safety Violation ", layout="wide")
+st.set_page_config(page_title="Safety Violation", layout="wide")
 
 # Helper function to convert PIL Image to base64
 def img_to_base64(image):
@@ -81,48 +81,79 @@ if emp_id:
 
         # Sort by date (earliest first)
         sorted_df = filtered_df.sort_values('Date')
+        num_images = len(sorted_df)
 
-        # Display in horizontal layout
-        scroll_container = st.container()
-        with scroll_container:
-            cols = st.columns(len(sorted_df))
+        if num_images == 1:
+            row = sorted_df.iloc[0]
+            img_url = row['Upload Image']
+            date_str = row['Date'].strftime('%d/%m/%Y')
+            caption = row['Description of Violation']
+            fine = row['Fine']
 
-            for col, (_, row) in zip(cols, sorted_df.iterrows()):
-                img_url = row['Upload Image']
-                date_str = row['Date'].strftime('%d/%m/%Y')  # Day/Month/Year
-                caption = row['Description of Violation']
-                fine = row['Fine']
+            if "drive.google.com" in img_url:
+                if "id=" in img_url:
+                    file_id = img_url.split("id=")[-1]
+                elif "/file/d/" in img_url:
+                    file_id = img_url.split("/file/d/")[1].split("/")[0]
+                else:
+                    file_id = None
 
-                # Convert to direct Google Drive link if needed
-                if "drive.google.com" in img_url:
-                    if "id=" in img_url:
-                        file_id = img_url.split("id=")[-1]
-                    elif "/file/d/" in img_url:
-                        file_id = img_url.split("/file/d/")[1].split("/")[0]
-                    else:
-                        file_id = None
+                direct_url = f"https://drive.google.com/uc?export=download&id={file_id}" if file_id else img_url
+            else:
+                direct_url = img_url
 
-                    if file_id:
-                        direct_url = f"https://drive.google.com/uc?export=download&id={file_id}"
+            try:
+                response = requests.get(direct_url)
+                img = Image.open(BytesIO(response.content))
+
+                st.markdown(f"""
+                    <div class="card" style="width: 300px; margin: 0 auto;">
+                        <div class="card-title">📅 {date_str}</div>
+                        <img src="data:image/jpeg;base64,{img_to_base64(img)}" style="width:100%; border-radius:8px;" />
+                        <div class="card-caption">📝 {caption}</div>
+                        <div class="card-fine">💰 Fine: {fine}</div>
+                    </div>
+                """, unsafe_allow_html=True)
+            except Exception as e:
+                st.error(f"❌ Error loading image: {e}")
+
+        else:
+            scroll_container = st.container()
+            with scroll_container:
+                cols = st.columns(num_images)
+
+                for col, (_, row) in zip(cols, sorted_df.iterrows()):
+                    img_url = row['Upload Image']
+                    date_str = row['Date'].strftime('%d/%m/%Y')
+                    caption = row['Description of Violation']
+                    fine = row['Fine']
+
+                    if "drive.google.com" in img_url:
+                        if "id=" in img_url:
+                            file_id = img_url.split("id=")[-1]
+                        elif "/file/d/" in img_url:
+                            file_id = img_url.split("/file/d/")[1].split("/")[0]
+                        else:
+                            file_id = None
+
+                        direct_url = f"https://drive.google.com/uc?export=download&id={file_id}" if file_id else img_url
                     else:
                         direct_url = img_url
-                else:
-                    direct_url = img_url
 
-                try:
-                    response = requests.get(direct_url)
-                    img = Image.open(BytesIO(response.content))
+                    try:
+                        response = requests.get(direct_url)
+                        img = Image.open(BytesIO(response.content))
 
-                    with col:
-                        st.markdown(f"""
-                            <div class="card">
-                                <div class="card-title">📅 {date_str}</div>
-                                <img src="data:image/jpeg;base64,{img_to_base64(img)}" style="width:100%; border-radius:8px;" />
-                                <div class="card-caption">📝 {caption}</div>
-                                <div class="card-fine">💰 Fine: {fine}</div>
-                            </div>
-                        """, unsafe_allow_html=True)
-                except Exception as e:
-                    col.error(f"❌ Error loading image: {e}")
+                        with col:
+                            st.markdown(f"""
+                                <div class="card">
+                                    <div class="card-title">📅 {date_str}</div>
+                                    <img src="data:image/jpeg;base64,{img_to_base64(img)}" style="width:100%; border-radius:8px;" />
+                                    <div class="card-caption">📝 {caption}</div>
+                                    <div class="card-fine">💰 Fine: {fine}</div>
+                                </div>
+                            """, unsafe_allow_html=True)
+                    except Exception as e:
+                        col.error(f"❌ Error loading image: {e}")
     else:
         st.warning("No data found for this Employee ID.")
