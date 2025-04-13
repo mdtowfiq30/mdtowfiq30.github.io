@@ -356,7 +356,7 @@ img {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow effect */
   max-width: 1150px; /* Max width for the container */
   width: 100%; /* Ensure the container takes full available width */
-  margin-bottom: 1%;
+  margin-bottom: -5%;
 }
 .home__container {
   gap: 1rem;
@@ -619,7 +619,7 @@ img {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow effect */
   max-width: 800px; /* Max width for the container */
   width: 100%; /* Ensure the container takes full available width */
-  margin-bottom: 1%;
+  margin-bottom: -5%;
 }
 
 .about__img {
@@ -675,7 +675,7 @@ img {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow effect */
   max-width: 900px; /* Max width for the container */
   width: 100%; /* Ensure the container takes full available width */
-  margin-bottom: 1%;
+  margin-bottom: -5%;
 }
 
 
@@ -996,6 +996,7 @@ img {
 
 .portfolio__container {
   overflow: initial;
+  margin-bottom: -7%;
 }
 /*need change*/
 .portfolio__content {
@@ -1235,7 +1236,7 @@ img {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow effect */
   max-width: 650px; /* Max width for the container */
   width: 100%; /* Ensure the container takes full available width */
-  margin-bottom: 15%;
+  margin-bottom: -5%;
 }
 
 .volunteer__card {
