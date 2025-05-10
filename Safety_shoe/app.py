@@ -7,7 +7,7 @@ import io
 st.set_page_config(page_title="Safety Shoe Status", page_icon="👞", layout="centered")
 
 # Directly download Excel file using requests (no gdown needed)
-excel_url = "https://docs.google.com/spreadsheets/d/1VB__QSZM3xOFzml86_9mHXmPLMbOdCE-/export?format=xlsx"
+
 
 try:
     response = requests.get(excel_url)
