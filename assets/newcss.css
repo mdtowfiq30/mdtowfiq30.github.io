@@ -19,12 +19,10 @@
   --text-color: hsl(var(--hue-color), 8%, 45%);
   --text-color-light: hsl(var(--hue-color), 8%, 65%);
   --input-color: hsl(var(--hue-color), 70%, 96%);
-  --body-color: hsl(var(--hue-color), 60%, 99%);
-  --container-color: #fff;
   --scroll-bar-color: hsl(var(--hue-color), 12%, 90%);
   --scroll-thumb-color: hsl(var(--hue-color), 12%, 80%);
-  --body-color: #f6f6f2; /* Set your desired background color */
-  --container-color: #fff; /* Leave this if you want containers to stay white */
+  --body-color: #f6f6f2; /* Background color */
+  --container-color: #ffffff;
   /*========= Font and typography ===========*/
   --body-font: "Poppins", sans-serif;
 
@@ -292,12 +290,7 @@ img {
 
 }
 
-.nav__icon {
-  font-size: 1.2rem;
-}
-.nav__icon {
-  font-size: 1.2rem;
-}
+.nav__icon { font-size: 1.2rem; }
 .nav__close {
   position: absolute;
   right: 1.3rem;
@@ -548,7 +541,7 @@ img {
   flex-direction: row; /* Default to row layout */
   align-items: center; /* Center vertically */
   margin-top: 10px; /* Space above the buttons */
-  justify-content: flex start; /* Center items horizontally */
+  justify-content: flex-start; /* Center items horizontally */
 }
 
 .home__buttons a {
@@ -1706,4 +1699,147 @@ img {
   .button--white {
     bottom: -4.5rem;
   }
+}
+
+/* Final polish overrides */
+.home__social-icon img{
+  width:32px;
+  height:32px;
+  object-fit:contain;
+  transition:transform .25s ease;
+}
+.home__social-icon:hover img{
+  transform:translateY(-3px);
+}
+.nav__logo{
+  white-space:nowrap;
+}
+.volunteer__organization{
+  font-size:1.15rem;
+}
+@media(max-width:768px){
+  .volunteer__container{
+    margin:0 1rem;
+    padding:1rem;
+  }
+}
+
+
+/* ================= 2026 Modern Portfolio Upgrade ================= */
+
+:root{
+  --modern-shadow: 0 18px 45px rgba(0,0,0,.10);
+  --glass: rgba(255,255,255,.72);
+}
+
+body{
+  background: linear-gradient(135deg,#f6f6f2 0%,#ffffff 100%);
+  overflow-x:hidden;
+}
+
+.header{
+  top:0;
+  bottom:auto;
+  backdrop-filter: blur(12px);
+  background: rgba(246,246,242,.75);
+  box-shadow:0 8px 30px rgba(0,0,0,.06);
+}
+
+.nav{
+  height:4.5rem;
+}
+
+.nav__logo{
+  font-size:1.15rem;
+  font-weight:700;
+}
+
+.nav__link{
+  flex-direction:row;
+  gap:.35rem;
+  border-radius:1rem;
+  padding:.55rem .8rem;
+}
+
+.nav__link:hover{
+  text-decoration:none;
+  transform:translateY(-2px);
+  background:var(--first-color-lighter);
+}
+
+.Home__container,
+.about__container,
+.skill__container,
+.volunteer__container{
+  border-radius:24px;
+  box-shadow:var(--modern-shadow);
+  backdrop-filter:blur(8px);
+}
+
+.home__title{
+  line-height:1.15;
+  letter-spacing:-1px;
+}
+
+.home__img{
+  animation:floatImage 5s ease-in-out infinite;
+}
+
+@keyframes floatImage{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+}
+
+.button{
+  border-radius:14px;
+  box-shadow:0 10px 20px rgba(0,0,0,.12);
+  transition:.25s ease;
+}
+
+.button:hover{
+  transform:translateY(-3px);
+  box-shadow:0 15px 30px rgba(0,0,0,.18);
+}
+
+.portfolio__content,
+.volunteer__card,
+.services__content{
+  border-radius:22px;
+  box-shadow:var(--modern-shadow);
+  transition:.3s ease;
+}
+
+.portfolio__content:hover,
+.volunteer__card:hover{
+  transform:translateY(-8px);
+}
+
+.portfolio__img{
+  border-radius:18px;
+  transition:.3s ease;
+}
+
+.portfolio__img:hover{
+  transform:scale(1.03);
+}
+
+.section__title{
+  font-weight:800;
+  letter-spacing:-.5px;
+}
+
+.reveal{
+  animation:fadeUp .8s ease both;
+}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@media(max-width:768px){
+ .header{top:auto;bottom:0}
+ .nav__link{flex-direction:column;padding:.3rem}
+ .Home__container{padding:1.2rem}
+ .home__title{text-align:center}
 }
